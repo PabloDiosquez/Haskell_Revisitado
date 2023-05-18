@@ -202,7 +202,7 @@ pertenece e (x:xs) = e == x || pertenece e xs
 apariciones :: Eq a => a -> [a] -> Int
 apariciones _ []     = 0
 apariciones e (x:xs) = if e == x then 1 + apariciones e xs
-							     else apariciones e xs 
+					   else apariciones e xs 
 
 -- 11) 
 -- Propósito: Dados un número n y una lista xs, devuelve todos los elementos de xs que son menores a n.
@@ -210,7 +210,7 @@ apariciones e (x:xs) = if e == x then 1 + apariciones e xs
 filtrarMenoresA :: Int -> [Int] -> [Int]
 filtrarMenoresA _ [] = []
 filtrarMenoresA n xs = if head' xs < n then head' xs : filtrarMenoresA n (tail' xs)
-									   else filtrarMenoresA n (tail' xs)
+					   else filtrarMenoresA n (tail' xs)
 -- 12)
 -- Propósito: Dados un elemento y una lista filtra (elimina) todas las ocurrencias de ese elemento en la
 -- lista.
@@ -219,4 +219,4 @@ filtrarMenoresA n xs = if head' xs < n then head' xs : filtrarMenoresA n (tail' 
 filtrarElemento :: Eq a => a -> [a] -> [a]
 filtrarElemento _ [] = []
 filtrarElemento e xs = if e == (head' xs) then filtrarElemento e (tail' xs) 
-										  else (head' xs) : filtrarElemento e (tail' xs)
+					   else (head' xs) : filtrarElemento e (tail' xs)
