@@ -220,3 +220,19 @@ filtrarElemento :: Eq a => a -> [a] -> [a]
 filtrarElemento _ [] = []
 filtrarElemento e xs = if e == (head' xs) then filtrarElemento e (tail' xs) 
 					   else (head' xs) : filtrarElemento e (tail' xs)
+
+
+-- 13)
+-- Propósito: Dada una lista de listas, describe la lista de sus longitudes.
+
+mapLongitudes :: [[a]] -> [Int]
+mapLongitudes []       = []
+mapLongitudes (xs:xss) = (longitud xs) : mapLongitudes xss
+
+-- 14) 
+-- Propósito: Dados un número natural n y una lista de listas, devuelve la lista de aquellas listas que tienen más
+-- de n elementos.
+
+longitudMayorA :: Int -> [[a]] -> [[a]]
+longitudMayorA _ [] = []
+longitudMayorA n (xs:xss) = if longitud xs > n then xs : longitudMayorA n xss else longitudMayorA n xss 
