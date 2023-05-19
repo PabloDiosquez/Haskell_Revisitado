@@ -234,5 +234,26 @@ mapLongitudes (xs:xss) = (longitud xs) : mapLongitudes xss
 -- de n elementos.
 
 longitudMayorA :: Int -> [[a]] -> [[a]]
-longitudMayorA _ [] = []
+longitudMayorA _ []       = []
 longitudMayorA n (xs:xss) = if longitud xs > n then xs : longitudMayorA n xss else longitudMayorA n xss 
+
+-- 16)
+-- Propósito: Dados una lista y un elemento, devuelve una lista con ese elemento agregado al final de la
+-- lista.
+
+snoc :: [a] -> a -> [a]
+snoc [] e      = [e]
+snoc (x:xs) e  = x : snoc xs e 
+
+-- 17) 
+-- Propósito: Dadas dos listas devuelve la lista con todos los elementos de la primera lista y todos los
+-- elementos de la segunda a continuación.
+-- Precondición: Las listas deben contener elementos del mismo tipo.
+
+append :: [a] -> [a] -> [a]
+append cs []     = cs 
+append cs (x:xs) = append (snoc cs x) xs 
+
+
+
+
