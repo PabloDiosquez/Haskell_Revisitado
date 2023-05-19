@@ -331,3 +331,11 @@ contarHasta n = snoc (contarHasta (n-1)) n
 replicarN :: Int -> a -> [a]
 replicarN 0 _ = []
 replicarN n e = e : replicarN (n-1) e 
+
+-- 5) 
+-- Propósito: Dados dos números **desde** y **hasta** devuelve una lista cuyos elementos sean los números entre éstos (incluidos).
+-- Precondición: Debe ser **desde** <= **hasta**.
+
+desdeHasta :: Int -> Int -> [Int]
+desdeHasta desde hasta = if hasta < desde then [] 
+						 else snoc (desdeHasta desde (hasta - 1)) hasta
