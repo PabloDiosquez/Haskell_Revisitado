@@ -1,6 +1,6 @@
--- 1. CONCEPTOS BÁSICOS.
+-- 1. 📚 CONCEPTOS BÁSICOS.
 
--- 1. Defina las siguientes funciones
+-- 1. 🔹 Defina las siguientes funciones
 
 -- a) 
 -- Propósito: Dado un número devuelve su sucesor.
@@ -15,12 +15,17 @@ suma :: Int -> Int -> Int
 suma n m = n + m
 
 -- c)
--- Propósito: Dados dos números devuelve el mayor de estos.
+-- Propósito: Dados dos números devuelve el mayor de éstos.
 
 mayor :: Int -> Int -> Int 
 mayor n m = if n >= m then n else m
 
--- 2. Defina las siguientes funciones usando pattern matching.
+-- Propósito: Dados dos números devuelve el menor de éstos.
+
+menor :: Int -> Int -> Int 
+menor n m = if n <= m then n else m
+
+-- 2. 🔹 Defina las siguientes funciones usando pattern matching.
 
 -- a) 
 -- Propósito: Describe True si el valor dado es False; describe False en caso contrario.
@@ -116,9 +121,9 @@ head' (x:xs) = x
 tail' :: [a] -> [a]
 tail' (x:xs) = xs 
 
--- 2. RECURSIÓN
+-- 2. 📚 RECURSIÓN
 
--- 2.1) Recursión sobre listas.
+-- 2.1) 🔸 Recursión sobre listas.
 
 -- Defina las siguientes funciones utilizando recursión estructural sobre listas, salvo que se indique
 -- lo contrario.
@@ -221,7 +226,6 @@ filtrarElemento _ [] = []
 filtrarElemento e xs = if e == (head' xs) then filtrarElemento e (tail' xs) 
 					   else (head' xs) : filtrarElemento e (tail' xs)
 
-
 -- 13)
 -- Propósito: Dada una lista de listas, describe la lista de sus longitudes.
 
@@ -254,6 +258,76 @@ append :: [a] -> [a] -> [a]
 append cs []     = cs 
 append cs (x:xs) = append (snoc cs x) xs 
 
+-- 18)
+-- Propósito: Dada una lista de listas, devuelve una única lista con todos sus elementos.
 
+aplanar :: [[a]] -> [a]
+aplanar []       = []
+aplanar (xs:xss) = append xs (aplanar xss) 
 
+-- 19)
+-- Propósito: Dada una lista devuelve la lista con los mismos elementos de atrás para adelante.
 
+reversa :: [a] -> [a]
+reversa []     = []
+reversa (x:xs) = snoc (reversa xs) x 
+
+-- 20) 
+-- Propósito: Dadas dos listas de enteros, devuelve una lista donde el elemento en la posición n es el
+-- máximo entre el elemento n de la primera lista y de la segunda lista, teniendo en cuenta que
+-- las listas no necesariamente tienen la misma longitud.
+
+zipMaximos :: [Int] -> [Int] -> [Int]
+zipMaximos xs ys = if xs == [] || ys == [] then [] 
+				   else mayor (head' xs) (head' ys) : zipMaximos (tail' xs) (tail' ys) 
+
+-- 21) 
+-- Propósito: Dadas dos listas de enteros de igual longitud, devuelve una lista de pares (min; max), donde
+-- min y max son el mínimo y el máximo respectivamente entre los elementos de ambas listas en la misma posición.
+-- Precondición: Las listas deben tener la misma longitud.
+
+zipSort :: [Int] -> [Int] -> [(Int, Int)]
+zipSort [] _          = []
+zipSort (x:xs) (y:ys) = maxMin x y : zipSort xs ys
+
+-- Propósito: Dados dos números enteros, describe una tupla con el máximo y el mínimo de los mismos respectivamente.
+
+maxMin :: Int -> Int -> (Int, Int)
+maxMin x y = (mayor x y, menor x y)
+
+-- 2.2 🔸 Recursión sobre números.
+-- Defina las siguientes funciones utilizando recursión sobre números enteros, salvo que se indique
+-- lo contrario.
+
+-- 1) 
+-- Propósito: Describe el factorial de un número dado.
+-- Precondición: El número dado debe ser >= 0.
+
+factorial :: Int -> Int 
+factorial 0 = 1
+factorial n = factorial(n-1) * n
+
+-- 2) 
+-- Propósito: Dado un número n devuelve una lista cuyos elementos sean los números comprendidos entre
+-- n y 1 (incluidos). Si el número es inferior a 1, devuelve la lista vacía.
+
+cuentaRegresiva :: Int -> [Int]
+cuentaRegresiva n 
+				  | n < 1     = []
+				  | otherwise = n : cuentaRegresiva (n-1) 
+
+-- 3)
+-- Propósito: Dado un número n devuelve una lista cuyos elementos sean los números entre 1 y n (incluidos).
+-- Precondición: El número dado debe ser >= 0.
+
+contarHasta :: Int -> [Int]
+contarHasta 0 = []
+contarHasta n = snoc (contarHasta (n-1)) n 
+
+-- 4) 
+-- Propósito: Dado un número n y un elemento e devuelve una lista en la que el elemento e repite n veces.
+-- Precondición: El número dado debe ser >= 0.
+
+replicarN :: Int -> a -> [a]
+replicarN 0 _ = []
+replicarN n e = e : replicarN (n-1) e 
