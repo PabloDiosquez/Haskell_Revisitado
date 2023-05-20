@@ -360,3 +360,25 @@ dropN n xs = if n == 0 || isEmpty xs then xs else dropN (n-1) (tail' xs)
 
 splitN :: Int -> [a] -> ([a], [a])
 splitN n xs = (takeN n xs, dropN n xs) 
+
+-- 🔹 Anexo con ejercicios adicionales
+-- Ejercicios adicionales para seguir practicando. Defina las siguientes funciones:
+
+-- 1) 
+-- Propósito: Dada una lista xs de enteros devuelva una tupla de listas, donde la primera componente con-
+-- tiene todos aquellos números positivos de xs y la segunda todos aquellos números negativos de xs.
+
+particionPorSigno :: [Int] -> ([Int], [Int])
+particionPorSigno xs = (listaDePositivos xs, listaDeNegativos xs)
+
+-- Propósito: Dada una lista de números enteros devuelve la lista de aquellos que son positivos.
+
+listaDePositivos :: [Int] -> [Int]
+listaDePositivos []     = []
+listaDePositivos (x:xs) = if x > 0 then x : listaDePositivos xs else listaDePositivos xs 
+
+-- Propósito: Dada una lista de números enteros devuelve la lista de aquellos que son negativos.
+
+listaDeNegativos :: [Int] -> [Int]
+listaDeNegativos []     = []
+listaDeNegativos (x:xs) = if x < 0 then x : listaDeNegativos xs else listaDeNegativos xs
