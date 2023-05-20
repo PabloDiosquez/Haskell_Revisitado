@@ -339,3 +339,24 @@ replicarN n e = e : replicarN (n-1) e
 desdeHasta :: Int -> Int -> [Int]
 desdeHasta desde hasta = if hasta < desde then [] 
 						 else snoc (desdeHasta desde (hasta - 1)) hasta
+
+-- 6)
+-- Propósito: Dados un número n y una lista xs, devuelve una lista con los primeros n elementos de xs.
+-- Si xs posee menos de n elementos, se devuelve la lista completa.
+
+takeN :: Int -> [a] -> [a]
+takeN n xs = if n == 0 || isEmpty xs then [] else (head' xs) : takeN (n-1) (tail' xs) 
+
+-- 7)
+-- Propósito: Dados un número n y una lista xs, devuelve una lista sin los primeros n elementos de lista
+-- recibida. Si la lista posee menos de n elementos, se devuelve una lista vacía.
+
+dropN :: Int -> [a] -> [a]
+dropN n xs = if n == 0 || isEmpty xs then xs else dropN (n-1) (tail' xs)
+
+-- 8) 
+-- Propósito: Dados un número n y una lista xs, devuelve un par donde la primera componente es la lista
+-- que resulta de aplicar takeN a xs, y la segunda componente el resultado de aplicar dropN a xs.
+
+splitN :: Int -> [a] -> ([a], [a])
+splitN n xs = (takeN n xs, dropN n xs) 
