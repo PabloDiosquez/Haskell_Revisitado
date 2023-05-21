@@ -382,3 +382,48 @@ listaDePositivos (x:xs) = if x > 0 then x : listaDePositivos xs else listaDePosi
 listaDeNegativos :: [Int] -> [Int]
 listaDeNegativos []     = []
 listaDeNegativos (x:xs) = if x < 0 then x : listaDeNegativos xs else listaDeNegativos xs
+
+-- 2) 
+-- Propósito: Dada una lista de números enteros xs, devuelve una tupla de listas donde la primera componente
+-- contiene a todos aquellos números pares de xs y la segunda a todos aquellos números impares de xs.
+
+particionPorParidad :: [Int] -> ([Int], [Int])
+particionPorParidad xs = (listaDePares xs, listaDeImpares xs)
+
+-- Propósito: Describe una lista con todos los números pares de la lista de enteros dada.
+
+listaDePares :: [Int] -> [Int]
+listaDePares []     = []
+listaDePares (x:xs) = if esPar x then x : listaDePares xs else listaDePares xs
+
+-- Propósito: Describe una lista con todos los números impares de la lista de enteros dada.
+
+listaDeImpares :: [Int] -> [Int]
+listaDeImpares []     = []
+listaDeImpares (x:xs) = if not (esPar x) then x : listaDeImpares xs else listaDeImpares xs
+
+-- Propósito: Indica si el número dado es par.
+
+esPar :: Int -> Bool
+esPar x = mod x 2 == 0
+
+-- 3) 
+-- Propósito: Dada una lista devuelve cada sublista resultante de apliar tail en cada caso.
+
+subtails :: [a] -> [[a]]
+subtails [] = [[]] 
+subtails xs = xs : subtails (tail xs) 
+
+-- 5)
+-- Propósito: Devuelve True si la primera lista es prefijo de la segunda.
+
+esPrefijo :: Eq a => [a] -> [a] -> Bool
+esPrefijo [] _  = True
+esPrefijo xs cs = (head' xs) == (head' cs) && esPrefijo xs cs
+ 
+-- 6)
+-- Propósito: Devuelve True si la primera lista es sufijo de la segunda.
+
+esSufijo :: Eq a => [a] -> [a] -> Bool
+esSufijo [] _ = True 
+esSufijo xs ys = last xs == last ys && esSufijo (init xs) (init ys) 
