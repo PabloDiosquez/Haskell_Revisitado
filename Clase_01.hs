@@ -209,13 +209,60 @@ funcionRara x y z = ( x >= y ) || z
 
 -- EJERCICIOS 🚀
 
--- 1 absoluto: calcula el valor absoluto de un n´umero entero.
--- 2 maximoabsoluto: devuelve el m´aximo entre el valor absoluto de dos n´umeros enteros.
--- 3 maximo3: devuelve el m´aximo entre tres n´umeros enteros.
--- 4 algunoEs0: dados dos n´umeros racionales, decide si alguno de los dos es igual a 0 (hacerlo
+-- 1 absoluto: calcula el valor absoluto de un número entero.
+
+absoluto :: Int -> Int 
+absoluto x 
+		   | x >= 0    = x 
+		   | otherwise = -x
+
+-- 2 maximoAbsoluto: devuelve el máximo entre el valor absoluto de dos números enteros.
+
+maximoAbsoluto :: Int -> Int -> Int 
+maximoAbsoluto x y = maximo (absoluto x) (absoluto y)
+
+-- 3 maximo3: devuelve el máximo entre tres números enteros.
+
+maximo3 :: Int -> Int -> Int -> Int
+maximo3 x y z = maximo x (maximo y z)
+
+
+-- 4 algunoEs0: dados dos números racionales, decide si alguno de los dos es igual a 0 (hacerlo
 -- dos veces, una sin usar y otra usando pattern matching).
--- 5 ambosSon0: dados dos n´umeros racionales, decide si ambos son iguales a 0 (hacerlo dos
+
+algunoEs0 :: Float -> Float -> Bool 
+algunoEs0 x y = (x == 0) || (y == 0)
+
+-- Pattern matching 👌🏼
+
+algunoEs0' :: Float -> Float -> Bool 
+algunoEs0' 0 _ = True
+algunoEs0' _ 0 = True
+algunoEs0' _ _ = False 
+
+-- 5 ambosSon0: dados dos números racionales, decide si ambos son iguales a 0 (hacerlo dos
 -- veces, una sin usar y otra usando pattern matching).
--- 6 esMultiploDe: dados dos n´umeros naturales, decidir si el primero es m´ultiplo del segundo.
--- 7 digitoUnidades: dado un n´umero natural, extrae su d´ıgito de las unidades.
--- 8 digitoDecenas: dado un n´umero natural, extrae su d´ıgito de las decenas.
+
+ambosSon0 :: Int -> Int -> Bool
+ambosSon0 x y = (x == 0) && (y == 0)
+
+-- Pattern matching 👌🏼
+
+ambosSon0' :: Int -> Int -> Bool
+ambosSon0' 0 0 = True
+ambosSon0' _ _ = False 
+
+-- 6 esMultiploDe: dados dos números naturales, decidir si el primero es múltiplo del segundo.
+
+esMultiploDe :: Int -> Int -> Bool
+esMultiploDe x y = mod x y == 0
+
+-- 7 digitoUnidades: dado un número natural, extrae su dígito de las unidades.
+
+digitoUnidades :: Int -> Int 
+digitoUnidades x = mod x 10
+
+-- 8 digitoDecenas: dado un número natural, extrae su dígito de las decenas.
+
+digitoDecenas :: Int -> Int 
+digitoDecenas x = mod (div x 10) 10
