@@ -83,6 +83,13 @@ angulo0 :: (Float, Float) -> Bool
 angulo0 (_, 0) = True
 angulo0 (_, _) = False
 
+{-
+No podemos usar dos veces la misma variable
+angulo45 :: (Float,Float) -> Bool
+angulo45 (x, x) = True
+angulo45 (_, _) = False
+-}
+
 angulo45 :: (Float, Float) -> Bool 
 angulo45 (x, y) = x == y
 
@@ -103,12 +110,24 @@ normaDeLaSuma2 u v = normaVectorial2 (suma' u v)
 
 -- EJERCICIOS 👷🏼‍
 
+-- 1
+-- Propósito: Dados dos números reales, decide si están relacionados considerando la 
+-- relación de equivalencia en R cuyas clases son: (-♾, 3], (3,7] y (7, ♾)
+-- Precondiciones: No tiene (es una función total).
+
+estanRelacionados :: Float -> Float -> Bool
+estanRelacionados x y = (x <= 3 && y <= 3) 
+					||  ((x > 3 && x <= 7) && ((y > 3 && y <= 7)))
+					|| 	(x > 7 && y > 7)
+
+
 -- 2)
 -- Propósito: Describe el producto interno entre los dos vectores de R2 dados.
 -- Precondiciones: No tiene (es una función total).
 
 productoInterno :: (Float, Float) -> (Float, Float) -> Float 
 productoInterno (ux, uy) (vx, vy) = ux * vx + uy * vy
+
 
 -- 3) 
 -- Propósito: Indica si cada coordenada del primer vector dado es menor a la
@@ -118,10 +137,47 @@ productoInterno (ux, uy) (vx, vy) = ux * vx + uy * vy
 todoMenor :: (Float, Float) -> (Float, Float) -> Bool 
 todoMenor (ux, uy) (vx, vy) = ux < vx && uy < vy 
 
+
+-- 4)
+-- Propósito: Describe la distancia entre dos puntos de R2.
+-- Precondiciones: No tiene (es una función total).
+
+distanciaPuntos :: (Float, Float) -> (Float, Float) -> Float
+distanciaPuntos (ux, uy) (vx, vy) = normaVectorial2 (ux - vx, uy - vy)
+
+-- 5)
+-- Propósito: Dada una terna de enteros, describe la suma de sus tres elementos.
+-- Precondiciones: No tiene (es una función total).
+
+sumaTerna :: (Int, Int, Int) -> Int 
+sumaTerna (x, y, z) = x + y + z 
+
+
+-- 6) 
+-- Propósito: Dada una terna de enteros, describe la posición del primer número par, 
+-- si es que hay alguno; describe 4 si son todos pares.
+-- Precondiciones: No tiene (es una función total).
+
+posicionPrimerPar :: (Int, Int, Int) -> Int 
+posicionPrimerPar (x, y, z) 
+							| esPar x = 1 
+							| esPar y = 2
+							| esPar z = 3
+							| otherwise = 4 
+							where esPar t = mod t 2 == 0
+
 -- 7)
 -- Propósito: Crea una tupla a partir de los dos elementos dados.
 -- Precondiciones: No tiene (es una función total).
 -- Observaciones: Debe funcionar para elementos de cualquier tipo.
 
 crearPar :: a -> b -> (a, b)
-crearPar x y = (x, y)   
+crearPar x y = (x, y) 
+
+-- 8) 
+-- Propósito: Describe la tupla que resulta de invertir los elementos de la tupla dada.
+-- Precondiciones: No tiene (es una función total).
+-- Observaciones: Debe funcionar para elementos de cualquier tipo.
+
+invertir :: (a, b) -> (b, a)
+invertir (x, y) = (y, x)
