@@ -46,15 +46,25 @@ esImpar' n = esPar' (n-1)
 
 -- EJERCICIOS 👷🏼‍
 
+-- 1.
+-- Propósito: Describe el nésimo número de la secuencia de Tribonacci 😁
+-- Precondiciones: El número dado debe ser >= 0. 
+
+tribonacci :: Int -> Int 
+tribonacci n 
+			| n <= 2    = n  
+			| otherwise = tribonacci (n-1) + tribonacci (n-2) + tribonacci (n-3)
+
+
 -- 2.
 -- Propósito: Indica si el número dado es múltiplo de 3.
 -- Precondiciones: El número dado debe ser >= 0.
 
 esMultiploDe3 :: Int -> Bool
-esMultiploDe3 n 
+esMultiploDe3 n  
 				| n == 0    = True
 				| n <= 2    = False 
-				| otherwise = esMultiploDe3 (n-3)
+				| otherwise = esMultiploDe3 (n-3) 
 
 -- 3.
 
@@ -64,6 +74,38 @@ esMultiploDe3 n
 -- Precondiciones: El número dado debe ser > 0.
 
 diabolico :: Int -> Bool
-diabolico 0 = True 		-- Case base elegido para mejorar la implementación del caso recursivo.
+diabolico 0 = True 				   -- Case base elegido para mejorar la implementación del caso recursivo.
 diabolico n = ultimoDigito n == 6 && diabolico (div n 10)
-			  where ultimoDigito n = mod n 10 
+	
+-- Propósito: Describe el último dígito del número dado.
+-- Precondiciones: El número dado debe ser >= 0.
+
+ultimoDigito :: Int -> Int 
+ultimoDigito n = mod n 10 
+
+-- 4.
+
+-- Idea: digitosIguales n = digitosIguales (d1d2...dk) -> dk == d(k-1) && digitosIguales (d1d2...d(k-1))
+
+-- Propósito: Indica si todos los dígitos del número dado son iguales.
+-- Precondiciones: El número dado debe ser >= 0.
+
+digitosIguales :: Int -> Bool
+digitosIguales n =  (n <= 9) || (ultimoDigito n == (ultimoDigito (resto n))) && digitosIguales (resto n)
+
+-- Propósito: Describe el número que resulta de eliminar el último dígito del número dado.
+-- Precondiciones: El número dado debe ser >= 0.
+
+resto :: Int -> Int 
+resto n = div n 10
+
+-- 6.
+-- Propósito: Indica si un número n es potencia de otro m.
+-- Precondiciones: Ambos números deben ser >= 0.
+
+-- Idea:
+-- 8 es potencia de 2 => 8 = 2*(👨‍👩‍👧‍👧) = 2*(2*(👬)) = ... = 2*(2*...(🕴🏼)))
+-- n es potencia de m => n ´mod´ m == 0 && (n ´div´ m) es potencia de m 
+
+es_PotenciaDe_ :: Int -> Int -> Bool 
+es_PotenciaDe_ n m = (n == 1) || mod n m == 0 && es_PotenciaDe_ (div n m) m
