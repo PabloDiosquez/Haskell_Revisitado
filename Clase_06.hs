@@ -141,7 +141,18 @@ hayRepetidos :: [Int] -> Bool
 hayRepetidos [] = False 
 hayRepetidos (x:xs) = pertenece x xs || hayRepetidos xs 
 
+-- 9.
+
+eliminarRepetidosAlFinal :: [Int] -> [Int]
+eliminarRepetidosAlFinal [] = []
+eliminarRepetidosAlFinal (x:xs) = x : eliminarRepetidosAlFinal (quitarTodas x xs) 
+
 -- 11.
+
+eliminarRepetidosAlInicio :: [Int] -> [Int]
+eliminarRepetidosAlInicio [] = []
+eliminarRepetidosAlInicio (x:xs) | pertenece x xs = eliminarRepetidosAlInicio xs
+								 | otherwise      = x : eliminarRepetidosAlInicio xs  
 
 maximo :: [Int] -> Int
 maximo xs = maximoAux (head xs) xs
@@ -189,3 +200,12 @@ ultimo (x:xs) | longitud (x:xs) == 1 = x
 concatenar :: [Int] -> [Int] -> [Int]
 concatenar [] ys = ys 
 concatenar xs ys = concatenar (quitar (ultimo xs) xs) (ultimo xs : ys)
+
+-- 15.
+
+zipi :: [a] -> [b] -> [(a,b)]
+zipi xs ys | esVacia xs || esVacia ys = []  
+zipi (x:xs) (y:ys) = (x, y) : zipi xs ys 
+		
+esVacia :: [a] -> Bool 
+esVacia xs = longitud xs == 0 
