@@ -69,4 +69,32 @@ agregarC xs css | perteneceC xs css =      css
 
 perteneceC :: Eq a => Set a -> Set (Set a) -> Bool
 perteneceC xs []       = False 
-perteneceC xs (cs:css) = (iguales xs cs) || perteneceC xs css  
+perteneceC xs (cs:css) = (iguales xs cs) || perteneceC xs css
+
+-- EJERCICIOS 🐸
+
+-- 1.
+
+partesN :: Int -> Set (Set Int) 
+partesN 0 = [[]] 
+partesN n = unionC (partesN (n-1)) (agregarATodos n (partesN (n-1)))  
+
+
+-- partesN' :: Int -> Set (Set Int)
+-- partesN' n = partes [1..n]
+
+-- 2.
+
+productoCartesiano :: (Eq a, Eq b) => Set a -> Set b -> Set (a, b)
+productoCartesiano [] cs     = []
+productoCartesiano (x:xs) cs = union (productoCartesianoAux x cs) (productoCartesiano xs cs) 
+
+
+
+productoCartesianoAux :: (Eq a, Eq b) => a -> Set b -> Set (a, b)
+productoCartesianoAux x []     = []
+productoCartesianoAux x (c:cs) = (tupla x c) : productoCartesianoAux x cs 
+
+
+tupla :: a -> b -> (a, b)
+tupla x y = (x, y)
