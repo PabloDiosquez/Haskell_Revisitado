@@ -44,3 +44,29 @@ diferencia (x:xs) cs | not (pertenece x cs) = x : diferencia xs cs
 
 diferenciaSimetrica :: Eq a => Set a -> Set a -> Set a 
 diferenciaSimetrica xs cs = diferencia (union xs cs) (interseccion xs cs) 
+
+-- CONJUNTO PARTES DE UN CONJUNTO ☂
+
+partes :: Eq a => Set a -> Set (Set a)
+partes []     = [[]] 
+partes (x:xs) = unionC (partes xs) (agregarATodos x (partes xs))
+
+
+agregarATodos :: Eq a => a -> Set (Set a) -> Set (Set a)
+agregarATodos x []       = []
+agregarATodos x (cs:css) = agregarC (agregar x cs) (agregarATodos x css) 
+
+-- FUNCIONES AUXILIARES 🐱‍🏍
+
+unionC :: Eq a => Set (Set a) -> Set (Set a) -> Set (Set a)
+unionC [] css       = css 
+unionC (xs:xss) css = unionC xss (agregarC xs css)
+
+
+agregarC :: Eq a => Set a -> Set (Set a) -> Set (Set a)
+agregarC xs css | perteneceC xs css =      css 
+				| otherwise         = xs : css
+
+perteneceC :: Eq a => Set a -> Set (Set a) -> Bool
+perteneceC xs []       = False 
+perteneceC xs (cs:css) = (iguales xs cs) || perteneceC xs css  
