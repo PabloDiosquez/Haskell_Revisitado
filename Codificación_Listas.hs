@@ -30,12 +30,32 @@ longitudDesde n k | k > n     = 0
 -- Precondiciones:
 -- * Los números dados deben ser > 0.
 
+mayorPotenciaQueDivide :: Int -> Int -> Int 
 mayorPotenciaQueDivide n k | esDivisible n k  = 1 + mayorPotenciaQueDivide (div n k) k 
 						   | otherwise        = 0
 						   where esDivisible n k = mod n k == 0   
  
 
+-- 2)
+-- Propósito:
+-- * Dados dos números naturales n e i, describe el i-ésimo elemento de la lista que codifica n. 
+--   Si el índice está fuera de rango, el programa describe 0.
+-- Precondiciones:
+-- * Los números dados deben ser > 0.
 
+iesimo :: Int -> Int -> Int 
+iesimo n i = mayorPotenciaQueDivide n (iEsimoPrimo)
+			where iEsimoPrimo = nEsimoPrimo i 
+
+
+-- 3)
+-- Propósito:
+-- * Describe el primer elemento de la lista codificada por el número dado.
+-- Precondiciones:
+-- * El número dado debe ser > 0.
+
+headN :: Int -> Int 
+headN n = mayorPotenciaQueDivide n 2 
 
 -- FUNCIONES AUXILIARES 🎃
 
