@@ -91,7 +91,7 @@ godel xs = godelDesde xs 1
 -- Propósito:
 -- * Describe el número de Godel de la lista dada.
 -- Precondiciones:
--- * El número dado debe ser >= 1.
+-- * No tiene (es una función total).
 
 godelDesde :: [Int] -> Int -> Int 
 godelDesde [] _ = 1 
