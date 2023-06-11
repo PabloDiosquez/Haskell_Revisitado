@@ -1,6 +1,42 @@
 module Codificación_Listas
 where 
 
+
+-- EJERCICIOS 🥕
+
+-- 1) 
+-- Propósito:
+-- * Describe la longitud de la lista codificada por el número natural dado.
+-- Precondiciones:
+-- * El número dado debe ser >= 0.
+ 
+longitud :: Int -> Int 
+longitud n = longitudDesde n 1
+
+
+-- Propósito:
+-- * Describe la longitud de la lista codificada por el número natural dado desde el k-ésimo primo.
+-- Precondiciones:
+-- * Los números dados deben ser > 0.
+
+longitudDesde :: Int -> Int -> Int 
+longitudDesde n k | k > n     = 0
+				  | otherwise = longitudDesde (div n ((kEsimoPrimo)^(mayorPotenciaQueDivide n (kEsimoPrimo)))) (k+1) + 1
+				  where kEsimoPrimo = nEsimoPrimo k
+
+
+-- Propósito:
+-- * Dados dos números naturales n y k, describe el exponente de la mayor potencia de k que divide a n.
+-- Precondiciones:
+-- * Los números dados deben ser > 0.
+
+mayorPotenciaQueDivide n k | esDivisible n k  = 1 + mayorPotenciaQueDivide (div n k) k 
+						   | otherwise        = 0
+						   where esDivisible n k = mod n k == 0   
+ 
+
+
+
 -- FUNCIONES AUXILIARES 🎃
 
 -- Propósito:
