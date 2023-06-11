@@ -20,9 +20,9 @@ longitud n = longitudDesde n 1
 -- * Los números dados deben ser > 0.
 
 longitudDesde :: Int -> Int -> Int 
-longitudDesde n k | k > n     = 0
-				  | otherwise = longitudDesde (div n ((kEsimoPrimo)^(mayorPotenciaQueDivide n (kEsimoPrimo)))) (k+1) + 1
-				  where kEsimoPrimo = nEsimoPrimo k
+longitudDesde 1 _ = 0
+longitudDesde n k = 1 + longitudDesde (div n ((kEsimoPrimo)^(mayorPotenciaQueDivide n (kEsimoPrimo)))) (k+1)
+				    where kEsimoPrimo = nEsimoPrimo k
 
 
 -- Propósito:
@@ -33,9 +33,8 @@ longitudDesde n k | k > n     = 0
 mayorPotenciaQueDivide :: Int -> Int -> Int 
 mayorPotenciaQueDivide n k | esDivisible n k  = 1 + mayorPotenciaQueDivide (div n k) k 
 						   | otherwise        = 0
-						   where esDivisible n k = mod n k == 0   
+						     where esDivisible n k = mod n k == 0   
  
-
 -- 2)
 -- Propósito:
 -- * Dados dos números naturales n e i, describe el i-ésimo elemento de la lista que codifica n. 
@@ -45,7 +44,7 @@ mayorPotenciaQueDivide n k | esDivisible n k  = 1 + mayorPotenciaQueDivide (div 
 
 iesimo :: Int -> Int -> Int 
 iesimo n i = mayorPotenciaQueDivide n (iEsimoPrimo)
-			where iEsimoPrimo = nEsimoPrimo i 
+			 where iEsimoPrimo = nEsimoPrimo i 
 
 
 -- 3)
@@ -56,6 +55,35 @@ iesimo n i = mayorPotenciaQueDivide n (iEsimoPrimo)
 
 headN :: Int -> Int 
 headN n = mayorPotenciaQueDivide n 2 
+
+
+-- 5)
+-- Propósito:
+-- * Describe la lista codificada por el número dado.
+-- Precondiciones:
+-- * El número dado debe ser > 0.
+
+-- codificarALista :: Int -> [Int]
+-- codificarALista n = codificarAListaDesde n 1
+
+-- codificarAListaDesde :: Int -> Int -> [Int] 
+
+
+-- 6)
+-- Propósito:
+-- * Describe el número de Godel de la lista dada.
+-- Precondiciones:
+-- * La lista dada no debe ser vacía.
+
+
+godel :: [Int] -> Int 
+godel xs = godelDesde xs 1 
+
+godelDesde [] _ = 1 
+godelDesde (x:xs) k = ((nEsimoPrimo k)^x)*godelDesde (xs) (k+1)
+
+
+
 
 -- FUNCIONES AUXILIARES 🎃
 
