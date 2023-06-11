@@ -1,7 +1,6 @@
 module Codificación_Listas
 where 
 
-
 -- EJERCICIOS 🥕
 
 -- 1) 
@@ -63,11 +62,21 @@ headN n = mayorPotenciaQueDivide n 2
 -- Precondiciones:
 -- * El número dado debe ser > 0.
 
--- codificarALista :: Int -> [Int]
--- codificarALista n = codificarAListaDesde n 1
+codificarALista :: Int -> [Int]
+codificarALista n = codificarAListaDesde n 1
 
--- codificarAListaDesde :: Int -> Int -> [Int] 
+-- Propósito:
+-- * Describe la lista codificada por el número dado desde el índice k.
+-- Precondiciones:
+-- * El número dado debe ser > 0.
+-- * El índice k debe comenzar desde el 1 ya que asume que va a recorrer TODOS los números primos,
+--   desde el primero hasta el más grade que divide a n inclusive.
 
+codificarAListaDesde :: Int -> Int -> [Int]
+codificarAListaDesde 1 _ = []
+codificarAListaDesde n k = (mayorPotenciaQueDivide n (nEsimoPrimo k)) :
+						   codificarAListaDesde (div n p) (k+1)
+						   where p = (nEsimoPrimo k)^(mayorPotenciaQueDivide n (nEsimoPrimo k)) 
 
 -- 6)
 -- Propósito:
@@ -75,14 +84,18 @@ headN n = mayorPotenciaQueDivide n 2
 -- Precondiciones:
 -- * La lista dada no debe ser vacía.
 
-
 godel :: [Int] -> Int 
 godel xs = godelDesde xs 1 
 
+
+-- Propósito:
+-- * Describe el número de Godel de la lista dada.
+-- Precondiciones:
+-- * El número dado debe ser >= 1.
+
+godelDesde :: [Int] -> Int -> Int 
 godelDesde [] _ = 1 
-godelDesde (x:xs) k = ((nEsimoPrimo k)^x)*godelDesde (xs) (k+1)
-
-
+godelDesde (g:gs) n = ((nEsimoPrimo n)^g)*godelDesde (gs) (n+1)
 
 
 -- FUNCIONES AUXILIARES 🎃
