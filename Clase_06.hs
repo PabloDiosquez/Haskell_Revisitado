@@ -126,7 +126,6 @@ sumarElPrimero :: [Int] -> [Int]
 sumarElPrimero (x:xs) = sumarN x (x:xs)
 
 -- 5.
-
 -- Propósito:
 -- ◽ Describe la lista formada por todos los números pares pertenecientes a la lista dada.
 -- Precondiciones:
@@ -142,7 +141,6 @@ pares (x:xs) | esPar x   = x : pares xs
 
 
 -- 6.
-
 -- Propósito:
 -- ◽ Describe la lista que resulta de quitar la primera aparición del elemento dado en la lista dada.
 -- Precondiciones:
@@ -155,7 +153,6 @@ quitar e (x:xs) | e == x    = xs
 
 
 -- 7.
-
 -- Propósito:
 -- ◽ Describe la lista que resulta de quitar todas las apariciones del elemento dado en la lista dada.
 -- Precondiciones:
@@ -168,7 +165,6 @@ quitarTodas e (x:xs) | e == x    = quitarTodas e xs
 
 
 -- 8.
-
 -- Propósito:
 -- ◽ Indica si hay elementos repetidos en la lista dada.
 -- Precondiciones:
@@ -179,7 +175,6 @@ hayRepetidos [] = False
 hayRepetidos (x:xs) = pertenece x xs || hayRepetidos xs 
 
 -- 9.
-
 -- Propósito:
 -- ◽ Describe la lista que resulta de eliminar las apariciones adicionales de cada elemento luego de la primera. 
 -- Precondiciones:
@@ -190,7 +185,6 @@ eliminarRepetidosAlFinal [] = []
 eliminarRepetidosAlFinal (x:xs) = x : eliminarRepetidosAlFinal (quitarTodas x xs) 
 
 -- 11.
-
 eliminarRepetidosAlInicio :: [Int] -> [Int]
 eliminarRepetidosAlInicio [] = []
 eliminarRepetidosAlInicio (x:xs) | pertenece x xs = eliminarRepetidosAlInicio xs
@@ -235,7 +229,6 @@ minimoAux e (x:xs) | e <= x    = minimoAux e xs
 				   | otherwise = minimoAux x xs 
 
 -- 12.
-
 -- Propósito:
 -- ◽ Describe la lista que resulta de ordenar de menor a mayor la lista dada.
 -- Precondiciones:
@@ -255,11 +248,18 @@ ordenar' [] = []
 ordenar' xs = maximo xs : ordenar' (quitar (maximo xs) xs)  
 
 -- 13.
+-- Propósito:
+-- ◽ Describe la lista que resulta de revertir los elementos de la lista dada.
+-- Precondiciones:
+-- ◽ No tiene (es una función total).
 
 reverso :: [Int] -> [Int]
 reverso [] = []
 reverso xs = ultimo xs : reverso (quitar (ultimo xs) xs)
 
+
+-- Propósito:
+-- ◽ Describe el último elemento de la lista dada.
 -- Precondición: 
 -- ▪ La lista dada no debe ser vacía.
 
@@ -267,18 +267,31 @@ ultimo :: [Int] -> Int
 ultimo (x:xs) | longitud (x:xs) == 1 = x 
 		      | otherwise        = ultimo xs 
 
-
 -- 14.
+-- Propósito:
+-- ◽ Describe la lista que resulta de concatenar las dos listas dadas.
+-- Precondiciones:
+-- ◽ No tiene (es una función total).
 
 concatenar :: [Int] -> [Int] -> [Int]
 concatenar [] ys = ys 
 concatenar xs ys = concatenar (quitar (ultimo xs) xs) (ultimo xs : ys)
 
 -- 15.
+-- Propósito:
+-- ◽ Describe la lista de tuplas donde cada tupla contiene elementos de ambas listas 
+--   que ocurren en la misma posición.
+-- Precondiciones:
+-- ◽ No tiene (es una función total).
 
 zipi :: [a] -> [b] -> [(a,b)]
 zipi xs ys | esVacia xs || esVacia ys = []  
 zipi (x:xs) (y:ys) = (x, y) : zipi xs ys 
 		
+-- Propósito:
+-- ◽ Indica si la lista dada es vacía.
+-- Precondiciones:
+-- ◽ No tiene (es una función total).
+
 esVacia :: [a] -> Bool 
 esVacia xs = longitud xs == 0 
