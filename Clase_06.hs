@@ -66,14 +66,29 @@ primerMultiploDe_En_ numero lista
 
 -- PATTERN MATCHING EN LISTAS 💀
 
+-- Propósito:
+-- ◽ Describe la suma de los elementos de la lista dada.
+-- Precondiciones:
+-- ◽ No tiene (es una función total).
+
 sumatoria' :: [Int] -> Int 
 sumatoria' []     = 0
 sumatoria' (x:xs) = x + sumatoria' xs 
 
 
+-- Propósito:
+-- ◽ Describe la longitud de la lista dada, es decir, describe la cantidad de elementos que tiene la lista. 
+-- Precondiciones:
+-- ◽ No tiene (es una función total).
+
 longitud' :: [a] -> Int 
 longitud' []     = 0
 longitud' (x:xs) = 1 + longitud' xs 
+
+-- Propósito:
+-- ◽ Indica si el elemento dado pertenece a la lista de elementos dada. 
+-- Precondiciones:
+-- ◽ El elemento dado debe ser del mismo tipo que el de los elementos de la lista dada.
 
 pertenece' :: Eq a => a -> [a] -> Bool 
 pertenece' _ []     = False 
