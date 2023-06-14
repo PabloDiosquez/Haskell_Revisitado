@@ -127,6 +127,13 @@ sumarElPrimero (x:xs) = sumarN x (x:xs)
 
 -- 5.
 
+-- Propósito:
+-- ◽ Describe la lista formada por todos los números pares pertenecientes a la lista dada.
+-- Precondiciones:
+-- ◽ No tiene (es una función total).
+-- Observaciones:
+-- ◽ Recorrido de filtro sobre los elementos de la lista dada buscando los números que son pares.
+
 pares :: [Int] -> [Int]
 pares [] = []
 pares (x:xs) | esPar x   = x : pares xs
@@ -136,6 +143,11 @@ pares (x:xs) | esPar x   = x : pares xs
 
 -- 6.
 
+-- Propósito:
+-- ◽ Describe la lista que resulta de quitar la primera aparición del elemento dado en la lista dada.
+-- Precondiciones:
+-- ◽ No tiene (es una función total).
+
 quitar :: Int -> [Int] -> [Int]
 quitar _ [] = []
 quitar e (x:xs) | e == x    = xs 
@@ -143,6 +155,11 @@ quitar e (x:xs) | e == x    = xs
 
 
 -- 7.
+
+-- Propósito:
+-- ◽ Describe la lista que resulta de quitar todas las apariciones del elemento dado en la lista dada.
+-- Precondiciones:
+-- ◽ No tiene (es una función total).
 
 quitarTodas :: Int -> [Int] -> [Int]
 quitarTodas _ [] = []
@@ -152,11 +169,21 @@ quitarTodas e (x:xs) | e == x    = quitarTodas e xs
 
 -- 8.
 
+-- Propósito:
+-- ◽ Indica si hay elementos repetidos en la lista dada.
+-- Precondiciones:
+-- ◽ No tiene (es una función total).
+
 hayRepetidos :: [Int] -> Bool 
 hayRepetidos [] = False 
 hayRepetidos (x:xs) = pertenece x xs || hayRepetidos xs 
 
 -- 9.
+
+-- Propósito:
+-- ◽ Describe la lista que resulta de eliminar las apariciones adicionales de cada elemento luego de la primera. 
+-- Precondiciones:
+-- ◽ No tiene (es una función total).
 
 eliminarRepetidosAlFinal :: [Int] -> [Int]
 eliminarRepetidosAlFinal [] = []
@@ -169,17 +196,38 @@ eliminarRepetidosAlInicio [] = []
 eliminarRepetidosAlInicio (x:xs) | pertenece x xs = eliminarRepetidosAlInicio xs
 								 | otherwise      = x : eliminarRepetidosAlInicio xs  
 
+-- Propósito:
+-- ◽ Describe el número más grande de todos los números de la lista dada.
+-- Precondiciones:
+-- ◽ La lista dada no debe ser vacía.
+
 maximo :: [Int] -> Int
 maximo xs = maximoAux (head xs) xs
 
+-- Propósito:
+-- ◽ Describe el número más grande entre todos los números de la lista dada y el número dado.
+-- Precondiciones:
+-- ◽ No tiene (es una función total).
+
 maximoAux :: Int -> [Int] -> Int
-maximoAux e [] = e 
+maximoAux e [] = e  -- e es una variable auxiliar que sirve para 'guardar' el valor más grande
 maximoAux e (x:xs) | e >= x    = maximoAux e xs 
 				   | otherwise = maximoAux x xs
 
 
+-- Propósito:
+-- ◽ Describe el número más chico de todos los números de la lista dada.
+-- Precondiciones:
+-- ◽ La lista dada no debe ser vacía.
+
 minimo :: [Int] -> Int 
 minimo xs = minimoAux (head xs) xs
+
+
+-- Propósito:
+-- ◽ Describe el número más chico entre todos los números de la lista dada y el número dado. 
+-- Precondiciones:
+-- ◽ No tiene (es una función total).
 
 minimoAux :: Int -> [Int] -> Int 
 minimoAux e [] = e 
@@ -188,9 +236,19 @@ minimoAux e (x:xs) | e <= x    = minimoAux e xs
 
 -- 12.
 
+-- Propósito:
+-- ◽ Describe la lista que resulta de ordenar de menor a mayor la lista dada.
+-- Precondiciones:
+-- ◽ No tiene (es una función total).
+
 ordenar :: [Int] -> [Int]
 ordenar [] = []
 ordenar xs = minimo xs : ordenar (quitar (minimo xs) xs)
+
+-- Propósito:
+-- ◽ Describe la lista que resulta de ordenar de mayor a menor la lista dada.
+-- Precondiciones:
+-- ◽ No tiene (es una función total).
 
 ordenar' :: [Int] -> [Int]
 ordenar' [] = [] 
