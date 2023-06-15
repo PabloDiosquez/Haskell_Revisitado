@@ -23,26 +23,37 @@ combinatorio' n k | n == k    = 1
 -- Precondiciones:
 -- ◽ <<k>> debe ser >= 0.
 
+-- variaciones {4,7} 0 = [[]]
+-- variaciones {4,7} 1 = [[4], [7]]
+-- variaciones {4,7} 2 = [[4,4], [4,7], [7,4], [7,7]] 
+
 variaciones :: Set Int -> Int -> Set [Int]
 variaciones cs 0 = [[]]
-variaciones cs k = union (agregarATodos (head cs) (variaciones cs (k-1))) (variaciones (tail cs) k) 
+variaciones cs k = agregarElementosAListas cs (variaciones cs (k-1))
 
+agregarElementosAListas :: Set Int -> Set [Int] -> Set [Int]
+agregarElementosAListas [] _       = [] 
+agregarElementosAListas (c:cs) xss = union (agregarElementoAdelante c xss) (agregarElementosAListas cs xss) 
+
+agregarElementoAdelante :: Int -> Set [Int] -> Set [Int]
+agregarElementoAdelante _ []       = [] 
+agregarElementoAdelante c (xs:xss) = agregar (c:xs) (agregarElementoAdelante c xss)
 
 -- Funciones auxiliares 🐱‍🏍
 
 type Set a = [a]
 
-vacio = Set a 
+vacio :: Set a 
 vacio = []
 
 pertenece :: Eq a => a -> Set a -> Bool
 pertenece e [] = False
-pertenece e (c:cs) = e == c || pertenece s cs 
+pertenece e (c:cs) = e == c || pertenece e cs 
 
 agregar :: Eq a => a -> Set a -> Set a 
 agregar e cs | pertenece e cs =     cs 
 			 | otherwise      = e : cs
 
 union :: Eq a => Set a -> Set a -> Set a 
-unionC [] xs    = xs 
-union (c:cs) xs = union (agregar c xs) xs   
+union [] xs    = xs 
+union (c:cs) xs = union cs (agregar c xs)   
