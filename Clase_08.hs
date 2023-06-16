@@ -39,6 +39,23 @@ agregarElementoAdelante :: Int -> Set [Int] -> Set [Int]
 agregarElementoAdelante _ []       = [] 
 agregarElementoAdelante c (xs:xss) = agregar (c:xs) (agregarElementoAdelante c xss)
 
+-- Ejercicio 3
+
+-- 💡
+-- insertarEn l 6 1 = 6 : l
+-- insertarEn (x:xs) 6 2 = x : (6 : xs) --> insertarEn l 6 2 = x : (insertarEn xs 6 1)
+-- insertarEn (x:xs) n i = x : (insertarEn xs n (i-1))
+
+-- Propósito:
+-- ◽Dados una lista l, un número n y una posición i (contando desde 1) describe una lista en donde se 
+-- insertó n en la posición i de l y los elementos siguientes corridos en una posición.
+-- Precondiciones:
+-- ◽El índice i debe ser <= (longitud de la lista) + 1.
+
+insertarEn :: [Int] -> Int -> Int -> [Int]
+insertarEn l n 1 = n : l 
+insertarEn l n i = (head l) : (insertarEn (tail l) n (i-1))  
+
 -- Funciones auxiliares 🐱‍🏍
 
 type Set a = [a]
