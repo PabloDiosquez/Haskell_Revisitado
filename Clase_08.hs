@@ -41,7 +41,6 @@ agregarElementoAdelante c (xs:xss) = agregar (c:xs) (agregarElementoAdelante c x
 
 -- Ejercicio 3
 
--- 💡
 -- insertarEn l 6 1 = 6 : l
 -- insertarEn (x:xs) 6 2 = x : (6 : xs) --> insertarEn l 6 2 = x : (insertarEn xs 6 1)
 -- insertarEn (x:xs) n i = x : (insertarEn xs n (i-1))
@@ -53,8 +52,21 @@ agregarElementoAdelante c (xs:xss) = agregar (c:xs) (agregarElementoAdelante c x
 -- ◽El índice i debe ser <= (longitud de la lista) + 1.
 
 insertarEn :: [Int] -> Int -> Int -> [Int]
-insertarEn l n 1 = n : l 
-insertarEn l n i = (head l) : (insertarEn (tail l) n (i-1))  
+insertarEn xs n 1 = n : xs 
+insertarEn xs n i = (head xs) : (insertarEn (tail xs) n (i-1)) 
+
+insertarEnCadaPosicion :: [Int] -> Int -> Int -> Set [Int]
+insertarEnCadaPosicion xs x 1 = agregar (insertarEn xs x 1) vacio 
+insertarEnCadaPosicion xs x i = agregar (insertarEn xs x i) (insertarEnCadaPosicion xs x (i-1))
+
+insertarEnCadaPosDeTodasLasListas :: Set [Int] -> Int -> Set [Int]
+insertarEnCadaPosDeTodasLasListas [] c       = []
+insertarEnCadaPosDeTodasLasListas (xs:xss) c = union (insertarEnCadaPosicion xs c (length xs + 1))
+											   (insertarEnCadaPosDeTodasLasListas xss c)
+
+permutaciones :: Set Int -> Set [Int]
+permutaciones [] = [[]]
+permutaciones (c:cs) = insertarEnCadaPosDeTodasLasListas (permutaciones cs) c
 
 -- Funciones auxiliares 🐱‍🏍
 
@@ -73,4 +85,8 @@ agregar e cs | pertenece e cs =     cs
 
 union :: Eq a => Set a -> Set a -> Set a 
 union [] xs    = xs 
-union (c:cs) xs = union cs (agregar c xs)   
+union (c:cs) xs = union cs (agregar c xs)  
+
+cardinal :: Set a -> Int 
+cardinal vacio  = 0
+cardinal (x:xs) = 1 +  cardinal xs 
