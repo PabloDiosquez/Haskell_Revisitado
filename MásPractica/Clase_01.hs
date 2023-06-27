@@ -21,4 +21,35 @@ pizzasTotales invitados porcionesPorInvitado =
 -}
 gramosDeHarinaTotales :: Integer -> Integer -> Integer
 gramosDeHarinaTotales invitados porcionesPorInvitado = 
-	(pizzasTotales invitados porcionesPorInvitado) * gramosDeHarinaPorPizza 
+	(pizzasTotales invitados porcionesPorInvitado) * gramosDeHarinaPorPizza
+
+-- ################################################################################
+-- El tipo de las funciones
+-- ¿Cuál es el tipo de la función f?
+-- f x = x + 1
+
+f :: Integer -> Integer 
+f x = x + 1 
+
+-- ¿Cuál es el tipo de la función g?
+-- g x y = f x > f y
+
+g :: Integer -> Integer -> Bool
+g x y = f x > f y 
+
+-- ¿Cuál es el tipo de la función h?
+-- h b x y = b && x > y 
+
+h :: Bool -> Integer -> Integer -> Bool 
+h b x y = b && x > y  
+
+
+
+
+
+
+
+
+
+
+
