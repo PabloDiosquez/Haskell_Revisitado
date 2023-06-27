@@ -1,3 +1,5 @@
+-- Parte I
+
 -- Ejemplo. Roque quiere cocinar pizza para n invitados, cada uno de los cuales como m porciones.
 -- Una pizza tiene 8 porciones. Cada pizza requiere 250gr de harina. ¿Cuánta harina debería comprar? 
 
@@ -139,3 +141,12 @@ maximo3 x y z = if x > (maximo y z)
 
 maximo3V2 :: Integer -> Integer -> Integer -> Integer
 maximo3V2 x y z = maximo x (maximo y z)
+
+-- Sinónimos de tipos 🥕
+
+-- type NombreNuevo = nombreOriginal
+
+type Edad = Int 
+
+edadRoque :: Edad
+edadRoque = 28 
