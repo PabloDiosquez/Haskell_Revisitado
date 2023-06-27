@@ -47,6 +47,10 @@ h b x y = b && x > y
 -- Roque quiere determinar cuántos segundos hay en d días, h horas, m minutos y s segundos.
 -- Definir una función segundosEnTotal d h m s = ...
 
+-- Propósito:
+-- ◽ Describe el número total de segundos que hay en "dias" días, "horas" horas, "minutos" minutos
+--   y "segundos" segundos.
+
 segundosEnTotal :: Integer -> Integer -> Integer -> Integer -> Integer
 segundosEnTotal dias horas minutos segundos = 
 	segundosEn_Dias dias + segundosEn_Horas horas + segundosEn_Minutos minutos + segundos
@@ -54,7 +58,7 @@ segundosEnTotal dias horas minutos segundos =
 segundosEn_Dias :: Integer -> Integer
 segundosEn_Dias dias = segundosEnUnDia * dias 
 
-segundosEn_Horas :: Integer
+segundosEn_Horas :: Integer -> Integer
 segundosEn_Horas horas = segundosEnUnaHora * horas 
 
 segundosEn_Minutos :: Integer -> Integer
