@@ -24,7 +24,8 @@ gramosDeHarinaTotales invitados porcionesPorInvitado =
 	(pizzasTotales invitados porcionesPorInvitado) * gramosDeHarinaPorPizza
 
 -- ################################################################################
--- El tipo de las funciones
+-- El tipo de las funciones 🐸
+
 -- ¿Cuál es el tipo de la función f?
 -- f x = x + 1
 
@@ -51,7 +52,7 @@ h b x y = b && x > y
 -- ◽ Describe el número total de segundos que hay en "d" días, "h" horas, "m" minutos
 --   y "s" segundos.
 segundosEnTotal :: Integer -> Integer -> Integer -> Integer -> Integer
-segundosEnTotal d h m s = minutosEnTotal d h m + s 
+segundosEnTotal d h m s = 60 * minutosEnTotal d h m + s 
 
 -- Propósito:
 -- ◽ Describe el número total de horas que hay en "d" días y "h" horas.
@@ -86,3 +87,55 @@ minutosEnTotal d h m = 60 * horasEnTotal d h + m
 
 -- segundosEnUnMinuto :: Integer
 -- segundosEnUnMinuto = 60
+
+-- 🟣 Alternativa condicional 
+
+-- Definir la función 
+-- minimo :: Integer -> Integer -> Integer 
+
+-- Propósito:
+-- ▪ Describe el número más chico entre los dos números dados.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+minimo :: Integer -> Integer -> Integer
+minimo x y = if x < y 
+				then x
+				else y  
+
+maximo :: Integer -> Integer -> Integer
+maximo x y = if x > y 
+			 	then x 
+			 	else y 
+
+-- Propósito:
+-- ▪ Describe el número más chico entre los tres números dados.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+minimo3 :: Integer -> Integer -> Integer -> Integer
+minimo3 x y z = minimo (minimo x y) z
+
+-- Propósito:
+-- ▪ Describe el número que quedaría en el medio de los tres números dados.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+medio3 :: Integer -> Integer -> Integer -> Integer
+medio3 x y z =
+	if  x < y 
+		then (if x > z 
+				then x 
+				else minimo y z)
+		else (if y > z 
+				then y 
+				else minimo x z)
+
+-- Propósito:
+-- ▪ Describe el número más grande entre los tres números dados.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+maximo3 :: Integer -> Integer -> Integer -> Integer
+maximo3 x y z = if x > (maximo y z) 
+					then x
+					else maximo y z
+
+maximo3V2 :: Integer -> Integer -> Integer -> Integer
+maximo3V2 x y z = maximo x (maximo y z)
