@@ -15,3 +15,19 @@ origen = (0, 0)
 
 -- fst :: (a, b) -> a
 -- snd :: (a, b) -> b
+
+-- Dos maneras de escribir funciones sobre pares 👉🏼 PATTERN MATCHING 😻
+
+dadoVuelta :: (a,b) -> (b, a)
+dadoVuelta par = (snd par, fst par) 
+
+dadoVuelta' :: (a, b) -> (b, a)
+dadoVuelta' (x, y) = (y, x) 
+
+-- Ejemplo 👽
+
+f :: (a, (b, c)) -> ((a, b), c)
+f p = ((fst p, fst (snd p)), snd (snd p))
+
+f' :: (a, (b, c)) -> ((a, b), c)
+f' (a, (b, c)) = ((a, b), c)
