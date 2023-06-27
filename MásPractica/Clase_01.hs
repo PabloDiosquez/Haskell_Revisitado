@@ -48,50 +48,41 @@ h b x y = b && x > y
 -- Definir una función segundosEnTotal d h m s = ...
 
 -- Propósito:
--- ◽ Describe el número total de segundos que hay en "dias" días, "horas" horas, "minutos" minutos
---   y "segundos" segundos.
-
+-- ◽ Describe el número total de segundos que hay en "d" días, "h" horas, "m" minutos
+--   y "s" segundos.
 segundosEnTotal :: Integer -> Integer -> Integer -> Integer -> Integer
-segundosEnTotal dias horas minutos segundos = 
-	segundosEn_Dias dias + segundosEn_Horas horas + segundosEn_Minutos minutos + segundos
+segundosEnTotal d h m s = minutosEnTotal d h m + s 
 
-segundosEn_Dias :: Integer -> Integer
-segundosEn_Dias dias = segundosEnUnDia * dias 
+-- Propósito:
+-- ◽ Describe el número total de horas que hay en "d" días y "h" horas.
+horasEnTotal :: Integer -> Integer -> Integer
+horasEnTotal d h = 24 * d + h 
 
-segundosEn_Horas :: Integer -> Integer
-segundosEn_Horas horas = segundosEnUnaHora * horas 
+-- Propósito:
+-- ◽ Describe el número total de minutos que hay en "d" días, "h" horas y "m" minutos.
+minutosEnTotal :: Integer -> Integer -> Integer -> Integer 
+minutosEnTotal d h m = 60 * horasEnTotal d h + m 
 
-segundosEn_Minutos :: Integer -> Integer
-segundosEn_Minutos minutos = segundosEnUnMinuto * minutos
+-- Solución alternativa 🙊
 
-segundosEnUnaHora :: Integer
-segundosEnUnaHora = minutosEnUnaHora * segundosEnUnMinuto
+-- segundosEnTotal :: Integer -> Integer -> Integer -> Integer -> Integer
+-- segundosEnTotal dias horas minutos segundos = 
+-- 	segundosEn_Dias dias + segundosEn_Horas horas + segundosEn_Minutos minutos + segundos
 
-segundosEnUnDia :: Integer
-segundosEnUnDia = horasEnUnDia * segundosEnUnaHora
+-- segundosEn_Dias :: Integer -> Integer
+-- segundosEn_Dias dias = segundosEnUnDia * dias 
 
-segundosEnUnMinuto :: Integer
-segundosEnUnMinuto = 60
+-- segundosEn_Horas :: Integer -> Integer
+-- segundosEn_Horas horas = segundosEnUnaHora * horas 
 
-minutosEnUnaHora :: Integer
-minutosEnUnaHora   = 60
+-- segundosEn_Minutos :: Integer -> Integer
+-- segundosEn_Minutos minutos = segundosEnUnMinuto * minutos
 
-horasEnUnDia :: Integer
-horasEnUnDia       = 24 
+-- segundosEnUnaHora :: Integer
+-- segundosEnUnaHora = 60 * segundosEnUnMinuto
 
+-- segundosEnUnDia :: Integer
+-- segundosEnUnDia = 24 * segundosEnUnaHora
 
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- segundosEnUnMinuto :: Integer
+-- segundosEnUnMinuto = 60
