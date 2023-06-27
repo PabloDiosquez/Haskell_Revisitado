@@ -41,7 +41,45 @@ g x y = f x > f y
 -- h b x y = b && x > y 
 
 h :: Bool -> Integer -> Integer -> Bool 
-h b x y = b && x > y  
+h b x y = b && x > y 
+
+-- Ejercicio
+-- Roque quiere determinar cuántos segundos hay en d días, h horas, m minutos y s segundos.
+-- Definir una función segundosEnTotal d h m s = ...
+
+segundosEnTotal :: Integer -> Integer -> Integer -> Integer -> Integer
+segundosEnTotal dias horas minutos segundos = 
+	segundosEn_Dias dias + segundosEn_Horas horas + segundosEn_Minutos minutos + segundos
+
+segundosEn_Dias :: Integer -> Integer
+segundosEn_Dias dias = segundosEnUnDia * dias 
+
+segundosEn_Horas :: Integer
+segundosEn_Horas horas = segundosEnUnaHora * horas 
+
+segundosEn_Minutos :: Integer -> Integer
+segundosEn_Minutos minutos = segundosEnUnMinuto * minutos
+
+segundosEnUnaHora :: Integer
+segundosEnUnaHora = minutosEnUnaHora * segundosEnUnMinuto
+
+segundosEnUnDia :: Integer
+segundosEnUnDia = horasEnUnDia * segundosEnUnaHora
+
+segundosEnUnMinuto :: Integer
+segundosEnUnMinuto = 60
+
+minutosEnUnaHora :: Integer
+minutosEnUnaHora   = 60
+
+horasEnUnDia :: Integer
+horasEnUnDia       = 24 
+
+
+
+ 
+
+
 
 
 
