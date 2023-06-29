@@ -83,7 +83,8 @@ esMenorQueLaOtra :: Persona -> Persona -> Bool
 esMenorQueLaOtra (MKPersona _ edad1) (MKPersona _ edad2) = edad1 < edad2
 
 -- Propósito:
--- ▪ 
+-- ▪ Describe la lista de las personas de la lista de personas dada cuyas edades superan
+--   a la edad dada.
 -- Precondiciones:
 -- ▪ "edadASuperar" debe ser >= 0.
 --
@@ -95,7 +96,7 @@ mayoresA edadASuperar (persona:personas) =
 	else mayoresA edadASuperar personas
 
 -- Propósito:
--- ▪ 
+-- ▪ Describe el promedio de las edades de las personas de la lista dada.
 -- Precondiciones:
 -- ▪ La lista posee al menos una persona.
 --
@@ -107,7 +108,7 @@ edades [] = []
 edades (persona:personas) = edad persona : edades personas
 
 -- Propósito:
--- ▪ 
+-- ▪ Describe a la persona más vieja de la lista dada.
 -- Precondiciones:
 -- ▪ La lista posee al menos una persona.
 --
@@ -115,7 +116,8 @@ elMasViejo :: [Persona] -> Persona
 elMasViejo (persona:personas) = elMasViejoEntre persona personas
 
 -- Propósito:
--- ▪ 
+-- ▪ Describe al más viejo entre la persona dada y las personas de la lista dada.
+--   En caso de que la lista sea vacía, describe a la primer persona dada.
 -- Precondiciones:
 -- ▪ No tiene (es una función total).
 --
@@ -129,10 +131,20 @@ elMasViejoEntre elMasViejoAlMomento (persona:personas) =
 
 -- Funciones Auxiliares 🐱‍🏍 
 
+-- Propósito:
+-- ▪ Describe la longitud de la lista dada.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
 longitud :: [a] -> Int 
 longitud []     = 0
 longitud (x:xs) = 1 + longitud xs 
 
+-- Propósito:
+-- ▪ Describe la sumatoria de los números de la lista dada.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
 sumatoria :: [Int] -> Int 
 sumatoria []     = 0
 sumatoria (x:xs) = x + sumatoria xs 
