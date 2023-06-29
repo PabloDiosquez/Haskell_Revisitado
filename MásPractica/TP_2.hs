@@ -85,18 +85,19 @@ esMenorQueLaOtra (MKPersona _ edad1) (MKPersona _ edad2) = edad1 < edad2
 -- Propósito:
 -- ▪ 
 -- Precondiciones:
--- ▪ 
+-- ▪ "edadASuperar" debe ser >= 0.
 --
 mayoresA :: Edad -> [Persona] -> [Persona]
 mayoresA _ [] = []
-mayoresA edadASuperar (persona:personas) = if (edad persona > edadASuperar)
-									 		then persona : mayoresA edadASuperar personas
-									 		else mayoresA edadASuperar personas
+mayoresA edadASuperar (persona:personas) = 
+	if (edad persona > edadASuperar)
+	then persona : mayoresA edadASuperar personas
+	else mayoresA edadASuperar personas
 
 -- Propósito:
 -- ▪ 
 -- Precondiciones:
--- ▪ 
+-- ▪ La lista posee al menos una persona.
 --
 promedioEdad :: [Persona] -> Int 
 promedioEdad personas = div (sumatoria (edades personas)) (longitud personas) 
@@ -105,14 +106,25 @@ edades :: [Persona] -> [Edad]
 edades [] = []
 edades (persona:personas) = edad persona : edades personas
 
-
+-- Propósito:
+-- ▪ 
+-- Precondiciones:
+-- ▪ La lista posee al menos una persona.
+--
 elMasViejo :: [Persona] -> Persona
+elMasViejo (persona:personas) = elMasViejoEntre persona personas
 
+-- Propósito:
+-- ▪ 
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
 elMasViejoEntre :: Persona -> [Persona] -> Persona 
+elMasViejoEntre elMasViejoAlMomento []                 = elMasViejoAlMomento
 elMasViejoEntre elMasViejoAlMomento (persona:personas) =
-						 if esMenorQueLaOtra persona elMasViejoAlMomento
-						 then elMasViejoEntre elMasViejoAlMomento personas
-						 else elMasViejoEntre persona personas 
+						 				if esMenorQueLaOtra persona elMasViejoAlMomento
+						 				then elMasViejoEntre elMasViejoAlMomento personas
+						 				else elMasViejoEntre persona personas 
 
 
 -- Funciones Auxiliares 🐱‍🏍 
