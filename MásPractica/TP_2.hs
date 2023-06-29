@@ -65,3 +65,62 @@ edad (MKPersona _ edad) = edad
 --
 crecer :: Persona -> Persona
 crecer (MKPersona nombre edad) = MKPersona nombre (edad + 1)
+
+-- Propósito:
+-- ▪ Describe a la persona dada con un nuevo nombre.
+-- Precondiciones:
+-- ▪ "nombreNuevo" no debe ser vacío.
+--
+cambioDeNombre :: Nombre -> Persona -> Persona
+cambioDeNombre nombreNuevo (MKPersona nombre edad) = MKPersona nombreNuevo edad 
+
+-- Propósito:
+-- ▪ Indica si la primer persona dada es menor que la segunda persona dada.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+esMenorQueLaOtra :: Persona -> Persona -> Bool 
+esMenorQueLaOtra (MKPersona _ edad1) (MKPersona _ edad2) = edad1 < edad2
+
+-- Propósito:
+-- ▪ 
+-- Precondiciones:
+-- ▪ 
+--
+mayoresA :: Edad -> [Persona] -> [Persona]
+mayoresA _ [] = []
+mayoresA edadASuperar (persona:personas) = if (edad persona > edadASuperar)
+									 		then persona : mayoresA edadASuperar personas
+									 		else mayoresA edadASuperar personas
+
+-- Propósito:
+-- ▪ 
+-- Precondiciones:
+-- ▪ 
+--
+promedioEdad :: [Persona] -> Int 
+promedioEdad personas = div (sumatoria (edades personas)) (longitud personas) 
+
+edades :: [Persona] -> [Edad]
+edades [] = []
+edades (persona:personas) = edad persona : edades personas
+
+
+elMasViejo :: [Persona] -> Persona
+
+elMasViejoEntre :: Persona -> [Persona] -> Persona 
+elMasViejoEntre elMasViejoAlMomento (persona:personas) =
+						 if esMenorQueLaOtra persona elMasViejoAlMomento
+						 then elMasViejoEntre elMasViejoAlMomento personas
+						 else elMasViejoEntre persona personas 
+
+
+-- Funciones Auxiliares 🐱‍🏍 
+
+longitud :: [a] -> Int 
+longitud []     = 0
+longitud (x:xs) = 1 + longitud xs 
+
+sumatoria :: [Int] -> Int 
+sumatoria []     = 0
+sumatoria (x:xs) = x + sumatoria xs 
