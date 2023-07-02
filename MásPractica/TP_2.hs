@@ -128,6 +128,205 @@ elMasViejoEntre elMasViejoAlMomento (persona:personas) =
 						 				then elMasViejoEntre elMasViejoAlMomento personas
 						 				else elMasViejoEntre persona personas 
 
+-- 3.
+--
+data TipoDePokemon =  Agua 
+				    | Fuego
+				    | Planta
+				    deriving Show
+
+type Energia = Int 
+
+type Nombre = String
+
+data Pokemon = MKPokemon TipoDePokemon Energia deriving Show 
+
+data Entrenador = MKEntrenador Nombre [Pokemon]
+
+-- 1)
+-- Propósito:
+-- ▪ Describe el elemento que le gana al tipo de pokemón dado.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+elementoGanador :: TipoDePokemon -> TipoDePokemon
+elementoGanador Agua   = Planta
+elementoGanador Fuego  = Agua
+elementoGanador Planta = Fuego
+
+-- 2)
+
+instance Eq TipoDePokemon where
+	Fuego  == Fuego  = True
+	Planta == Planta = True
+	Agua   == Agua   = True
+	_ == _           = False
+
+-- Propósito:
+-- ▪ Indica si el primer pokemón dado le gana el segundo pokemón dado.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+leGanaA :: Pokemon -> Pokemon -> Bool
+leGanaA primerPokemon segundoPokemon = tipo primerPokemon == elementoGanador (tipo segundoPokemon) 
+
+-- Función observadora 👀 
+-- Propósito:
+-- ▪ Describe el tipo del pokemón dado.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+tipo :: Pokemon -> TipoDePokemon
+tipo (MKPokemon tipo _) = tipo 
+
+-- 3)
+-- Propósito:
+-- ▪ Describe al entrenador dado con la lista de pokemóns actualizada con el pokemón dado agregado.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+capturarPokemon :: Pokemon -> Entrenador -> Entrenador
+capturarPokemon pokemon (MKEntrenador nombre pokemons) = MKEntrenador nombre (pokemon : pokemons)
+
+-- 4)
+-- Propósito:
+-- ▪ Describe la cantidad de pokemons que tiene el entrenador dado.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+cantidadDePokemons :: Entrenador -> Int
+cantidadDePokemons entrenador = longitud (pokemons entrenador)
+
+-- Propósito:
+-- ▪ Describe la lista de pokemons que tiene el entrenador dado.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+pokemons :: Entrenador -> [Pokemon]
+pokemons (MKEntrenador _ pokemons) = pokemons
+
+
+-- 5)
+-- Propósito:
+-- ▪ Describe la cantidad de pokemons del tipo dado que tiene el entrenador dado.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+cantidadDePokemonsDeTipo :: TipoDePokemon -> Entrenador -> Int
+cantidadDePokemonsDeTipo tipo entrenador = 
+	cantidadDePokemonsDeTipo_EnLaLista tipo (pokemons entrenador)
+
+-- Propósito:
+-- ▪ Describe la cantidad de pokemons del tipo dado en la lista de pokemons dada.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+cantidadDePokemonsDeTipo_EnLaLista :: TipoDePokemon -> [Pokemon] -> Int 
+cantidadDePokemonsDeTipo_EnLaLista _ [] = 0
+cantidadDePokemonsDeTipo_EnLaLista tipo (pokemon : pokemons) = 
+									if es_DeTipo_ pokemon tipo 
+										then 1 + cantidadDePokemonsDeTipo_EnLaLista tipo pokemons
+
+										else cantidadDePokemonsDeTipo_EnLaLista tipo pokemons
+
+-- Propósito:
+-- ▪ Indica si el pokemon dado es del tipo dado.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+es_DeTipo_ :: Pokemon -> TipoDePokemon -> Bool
+es_DeTipo_ pokemon tipoAVerificar = (tipo pokemon) == tipoAVerificar 
+
+-- 6)
+-- Propósito:
+-- ▪ Indica si el entrenador dado posee un pokemon que le puede ganar al pokemon dado.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+lePuedeGanar :: Entrenador -> Pokemon -> Bool
+lePuedeGanar entrenador pokemon = tiene_unPokemonDeTipo_ entrenador (elementoGanador (tipo pokemon))
+
+-- Propósito:
+-- ▪ Indica si el entrenador dado tiene un pokemon del tipo dado en su lista de pokemons.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+tiene_unPokemonDeTipo_ :: Entrenador -> TipoDePokemon -> Bool 
+tiene_unPokemonDeTipo_ entrenador tipo = enLaLista_HayUnPokemonDeTipo_ (pokemons entrenador) tipo 
+
+-- Propósito:
+-- ▪ Indica si en la lista de pokemons dada hay un pokemon del tipo dado.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+enLaLista_HayUnPokemonDeTipo_ :: [Pokemon] -> TipoDePokemon -> Bool 
+enLaLista_HayUnPokemonDeTipo_ [] _ = False
+enLaLista_HayUnPokemonDeTipo_ (pokemon : pokemons) tipoAVer = 
+					es_DeTipo_ pokemon tipoAVer || enLaLista_HayUnPokemonDeTipo_ pokemons tipoAVer
+
+-- 7)
+-- Propósito:
+-- ▪ Indica si los dos entrenadores dados tienen un pokemon del tipo dado con energía
+--   en sus respectivas listas de pokemons.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+puedenPelear :: TipoDePokemon -> Entrenador -> Entrenador -> Bool 
+puedenPelear tipo entrenador1 entrenador2 = 
+ (tiene_unPokemonDeTipo_ConEnergia entrenador1 tipo) && (tiene_unPokemonDeTipo_ConEnergia entrenador2 tipo) 
+
+
+-- Propósito:
+-- ▪ Indica si el entrenador dado tiene un pokemon del tipo dado con energía.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+tiene_unPokemonDeTipo_ConEnergia :: Entrenador -> TipoDePokemon -> Bool 
+tiene_unPokemonDeTipo_ConEnergia entrenador tipoAVer = 
+	tieneLaLista_UnPokemonDeTipo_ConEnergia (pokemons entrenador) tipoAVer
+
+-- Propósito:
+-- ▪ Indica si la lista de pokemons dada tiene al menos un pokemon del tipo dado con energía para 
+--   pelear.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+tieneLaLista_UnPokemonDeTipo_ConEnergia :: [Pokemon] -> TipoDePokemon -> Bool 
+tieneLaLista_UnPokemonDeTipo_ConEnergia [] _ = False
+tieneLaLista_UnPokemonDeTipo_ConEnergia (pokemon : pokemons) tipoAVer =
+			(es_DeTipo_ pokemon tipoAVer) && (energia pokemon > 0) ||
+		    tieneLaLista_UnPokemonDeTipo_ConEnergia pokemons tipoAVer 
+
+-- Propósito:
+-- ▪ Describe el nivel de energía del pokemon dado.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+energia :: Pokemon -> Energia
+energia (MKPokemon _ energia) = energia  
+
+-- 8)
+-- Propósito:
+-- ▪ Indica si el entrenador dado es un experto.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+-- Observaciones:
+-- Un entrenador es experto si tiene al menos un pokemón de cada tipo.
+--
+esExperto :: Entrenador -> Bool 
+esExperto entrenador = tiene_unPokemonDeTipo_ entrenador Agua  &&
+					   tiene_unPokemonDeTipo_ entrenador Fuego &&
+					   tiene_unPokemonDeTipo_ entrenador Planta 
+
+-- 9)
+-- Propósito:
+-- ▪ Describe una lista con todos los pokemons de cada entrenador de la lista de entrenadores dada.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+fiestaPokemon :: [Entrenador] -> [Pokemon]
+fiestaPokemon []                          = []
+fiestaPokemon (entrenador : entrenadores) = pokemons entrenador ++ fiestaPokemon entrenadores
 
 -- Funciones Auxiliares 🐱‍🏍 
 
