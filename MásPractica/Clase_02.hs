@@ -90,3 +90,34 @@ maximoEntre :: Int -> Int -> Int
 maximoEntre x y = if x >= y 
 						then x 
 						else y 
+
+-- ◽ Ejercicio
+-- Definir la función escalar - recibe un factor y una lista de números y devuelve la lista 
+-- que resulta de multiplicar todos los elementos por ese factor.
+
+-- Propósito:
+-- ▪ Recibe un número entero (factor) y una lista de números enteros y describe la lista que
+--   resulta de multiplicar todos los elementos de la lista por ese número dado.
+-- Precondiciones:
+-- ▪ 
+-- 
+escalar :: Int -> [Int] -> [Int]
+escalar factor []     = [] 
+escalar factor (x:xs) = 
+	(factor * x) : escalar factor xs 
+
+-- ◽ Ejercicio 
+-- Definir la función losBuenos - que recibe una lista de pares y devuelve una lista con el primer
+-- elemento de cada par, siempre que el segundo elemento del par sea True.
+
+-- Propósito:
+-- *
+-- Precondiciones:
+-- *
+--
+losBuenos :: [(a, Bool)] -> [a]
+losBuenos []     = [] 
+losBuenos (cabeza:cola) = 
+	if snd cabeza 
+		then fst cabeza : losBuenos cola
+		else losBuenos cola 
