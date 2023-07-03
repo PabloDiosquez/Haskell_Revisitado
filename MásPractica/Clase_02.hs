@@ -46,6 +46,7 @@ f x y =
 -- f [] = valor para la lista vacía
 -- f (x:xs) = alguna combinación de x con (f x)
 
+-- ◽ Ejercicio 
 -- Definir la función longitud - recibe un String y devuelve su longitud.
 
 -- Propósito:
@@ -65,3 +66,27 @@ f x y =
 longitud :: [a] -> Int 
 longitud [] 	= 0
 longitud (x:xs) = 1 + longitud xs   
+
+-- ◽ Ejercicio
+-- Definir la función maximo que recibe una lista de números no negativos y 
+-- desvuelve el más grande.
+
+-- Propósito:
+-- ▪ Recibe una lista de números y describe el más grande.
+-- Precondiciones:
+-- ▪ La lista dada no debe ser vacía.
+-- ▪ La lista no contiene números enteros negativos.
+--
+maximo :: [Int] -> Int 
+maximo []     = 0
+maximo (x:xs) = maximoEntre x (maximo xs) 
+
+-- Propósito:
+-- ▪ Recibe dos números enteros y describe el más grande.
+-- Precondiciones:
+-- ▪ No tiene (es una función total).
+--
+maximoEntre :: Int -> Int -> Int 
+maximoEntre x y = if x >= y 
+						then x 
+						else y 
