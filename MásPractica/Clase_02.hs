@@ -121,3 +121,16 @@ losBuenos (cabeza:cola) =
 	if snd cabeza 
 		then fst cabeza : losBuenos cola
 		else losBuenos cola 
+
+-- Definir la función append - recibe dos listas y devuelve una lista con todos los elementos
+-- de ambas yuxtapuestos, en orden. 
+-- Escribir el tipo de append.
+
+-- Propósito:
+-- * Describe la lista con todos los elementos de las dos listas dadas en orden.
+-- Precondiciones:
+-- * No tiene (es una función total).
+--
+append :: [a] -> [a] -> [a]
+append [] ys     = ys 
+append (x:xs) ys = x : append xs ys  
