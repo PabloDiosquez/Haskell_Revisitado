@@ -143,7 +143,7 @@ append (x:xs) ys = x : append xs ys
 -- los mismos elementos pero no tiene repetidos.
 
 -- Propósito:
--- * Describe la lista con todos los elementos de las dos listas dadas en orden.
+-- * Describe la lista que contiene los mismos elementos que la lista dada pero sin repetidos.
 -- Precondiciones:
 -- * No tiene (es una función total).
 --
@@ -156,10 +156,19 @@ sinRepetidos (x:xs) =
 
 
 -- Propósito:
--- * Describe la lista con todos los elementos de las dos listas dadas en orden.
+-- * Indica si el elemento dado pertenece a la lista dada.
 -- Precondiciones:
 -- * No tiene (es una función total).
 --
 pertenece :: Eq a => a -> [a] -> Bool 
 pertenece _ []     = False 
 pertenece e (x:xs) = e == x || pertenece e xs 
+
+-- Ejercicio 
+
+-- Definir la función incluida - recibe dos listas y denota True si todos los elementos de la primera
+-- están contenidos en la segunda.
+
+incluida :: [Int] -> [Int] -> Bool
+incluida [] ys     = True  
+incluida (x:xs) ys = pertenece x ys && incluida xs ys 
