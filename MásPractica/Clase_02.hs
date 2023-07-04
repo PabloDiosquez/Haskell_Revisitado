@@ -142,9 +142,24 @@ append (x:xs) ys = x : append xs ys
 -- Definir la función sinRepetidos - recibe una lista y devuelve la lista que contiene
 -- los mismos elementos pero no tiene repetidos.
 
-sinRepetidos :: [a] -> [a]
+-- Propósito:
+-- * Describe la lista con todos los elementos de las dos listas dadas en orden.
+-- Precondiciones:
+-- * No tiene (es una función total).
+--
+sinRepetidos :: Eq a => [a] -> [a]
 sinRepetidos []     = []
 sinRepetidos (x:xs) = 
-	if elem x xs 
-		then sinRepetidos xs 
-		else x : sinRepetidos xs 
+	if pertenece x sinRepetidos xs 
+		then       sinRepetidos xs 
+		else   x : sinRepetidos xs 
+
+
+-- Propósito:
+-- * Describe la lista con todos los elementos de las dos listas dadas en orden.
+-- Precondiciones:
+-- * No tiene (es una función total).
+--
+pertenece :: Eq a => a -> [a] -> Bool 
+pertenece _ []     = False 
+pertenece e (x:xs) = e == x || pertenece e xs 
