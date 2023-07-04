@@ -150,9 +150,9 @@ append (x:xs) ys = x : append xs ys
 sinRepetidos :: Eq a => [a] -> [a]
 sinRepetidos []     = []
 sinRepetidos (x:xs) = 
-	if pertenece x sinRepetidos xs 
-		then       sinRepetidos xs 
-		else   x : sinRepetidos xs 
+	if pertenece x (sinRepetidos xs) 
+		then        sinRepetidos xs 
+		else   x :  sinRepetidos xs 
 
 
 -- Propósito:
@@ -164,11 +164,32 @@ pertenece :: Eq a => a -> [a] -> Bool
 pertenece _ []     = False 
 pertenece e (x:xs) = e == x || pertenece e xs 
 
--- Ejercicio 
-
+-- ◽ Ejercicio 
 -- Definir la función incluida - recibe dos listas y denota True si todos los elementos de la primera
 -- están contenidos en la segunda.
 
-incluida :: [Int] -> [Int] -> Bool
+-- Propósito:
+-- * Indica si todos los elementos de la primer lista dada están contenidos en la segunda lista dada.
+-- Precondiciones:
+-- * No tiene (es una función total).
+--
+incluida :: Eq a => [a] -> [a] -> Bool
 incluida [] ys     = True  
-incluida (x:xs) ys = pertenece x ys && incluida xs ys 
+incluida (x:xs) ys = pertenece x ys && incluida xs ys
+
+-- ◽ Ejercicio
+-- Definir la función diferencia - recibe dos listas. Devuelve una lista que tiene todos los 
+-- elementos de que están en la primer lista y no están en la segunda lista.
+
+-- Propósito:
+-- * Describe la lista formada por todos los elementos de la primer lista dada que no estén contenidos
+--   en la segunda lista dada.
+-- Precondiciones:
+-- * No tiene (es una función total).
+--
+diferencia :: Eq a => [a] -> [a] -> [a]
+diferencia [] ys     = [] 
+diferencia (x:xs) ys = 
+	if pertenece x ys 
+		then     diferencia xs ys 
+		else x : diferencia xs ys 		 
