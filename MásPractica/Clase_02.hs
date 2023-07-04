@@ -193,3 +193,36 @@ diferencia (x:xs) ys =
 	if pertenece x ys 
 		then     diferencia xs ys 
 		else x : diferencia xs ys 		 
+
+-- ◽ Ejercicio
+-- Definir la función sufijos - recibe una lista y denota la lista de listas de todos sus sufijos.
+
+-- Propósito:
+-- * Describe la lista de listas de todos los sufijos de la lista dada.
+-- Precondiciones:
+-- * No tiene (es una función total).
+--
+sufijos :: [a] -> [[a]]
+sufijos []     = [[]]
+sufijos (x:xs) = (x:xs) : sufijos xs 
+
+
+-- ◽ Ejercicio
+-- Definir la función prefijos - recibe una lista y denota la lista de listas de todos sus prefijos.
+
+-- Ejemplo
+-- prefijos [2,3]   = [[2,3], [2], []]
+-- prefijos [1,2,3] = [[1,2,3], [1,2], [1], []]
+
+-- Propósito:
+-- * Describe la lista de listas de todos los prefijos de la lista dada.
+-- Precondiciones:
+-- * No tiene (es una función total).
+--
+prefijos :: [a] -> [[a]]
+prefijos []     = [[]]
+prefijos (x:xs) = [] : agregarATodosAdelante x (prefijos xs) 
+
+agregarATodosAdelante :: a -> [[a]] -> [[a]]
+agregarATodosAdelante e []       = []
+agregarATodosAdelante e (xs:xss) = (e:xs) : agregarATodosAdelante e xss 
