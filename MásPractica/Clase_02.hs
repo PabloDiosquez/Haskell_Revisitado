@@ -122,6 +122,8 @@ losBuenos (cabeza:cola) =
 		then fst cabeza : losBuenos cola
 		else losBuenos cola 
 
+-- ◽ Ejercicio
+
 -- Definir la función append - recibe dos listas y devuelve una lista con todos los elementos
 -- de ambas yuxtapuestos, en orden. 
 -- Escribir el tipo de append.
@@ -134,3 +136,15 @@ losBuenos (cabeza:cola) =
 append :: [a] -> [a] -> [a]
 append [] ys     = ys 
 append (x:xs) ys = x : append xs ys  
+
+-- ◽ Ejercicio
+
+-- Definir la función sinRepetidos - recibe una lista y devuelve la lista que contiene
+-- los mismos elementos pero no tiene repetidos.
+
+sinRepetidos :: [a] -> [a]
+sinRepetidos []     = []
+sinRepetidos (x:xs) = 
+	if elem x xs 
+		then sinRepetidos xs 
+		else x : sinRepetidos xs 
