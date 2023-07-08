@@ -124,3 +124,26 @@ recetaParaPizza =
 		(Cocinar (Horno Fuerte 10)
 		(Agregar 150 tomate 
 		(Agregar 200 bollo Empezar))))
+
+-- Algunas funciones sobre recetas 😻
+
+-- Propósito:
+-- Describe la cantidad de calorías que aporta en total la comida terminada, teniendo en cuenta
+-- el valor energético y la cantidad incorporada de cada ingrediente.
+-- Precondiciones:
+-- No tiene (es una función total).
+--
+kCalTotalesR :: Receta -> Int
+kCalTotalesR Empezar = 0 
+kCalTotalesR (Agregar gramos ingrediente receta) =
+	(kCalTotalesI gramos ingrediente) + kCalTotalesR receta
+kCalTotalesR (Cocinar _ receta) = kCalTotalesR receta  
+			
+-- Propósito:
+-- Describe la cantidad de calorías que aporta la comida dada, teniendo en cuenta el valor 
+-- energético y la cantidad de gramos incorporada.
+-- Precondiciones:
+-- **gramos** debe ser >= 0.
+--
+kCalTotalesI :: Int -> Ingrediente -> Int
+kCalTotalesI gramos (MKI _ _ valorEnergetico) = div (gramos * valorEnergetico) 100
