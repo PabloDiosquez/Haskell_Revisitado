@@ -28,6 +28,7 @@ esAnimal :: Origen -> Bool
 esAnimal Animal = True 
 esAnimal _      = False 
 
+---------------------------------
 -- Tipos productos (registros)🐣 -- Los constructores pueden tener parámetros -- 
 
 -- Un ingrediente cuenta con una descripción, su origen y un valor energético por cada 100gr
@@ -94,6 +95,32 @@ data MetodoCoccion = Horno Fuego Int
 -- 15 minutos.
 
 demoraMC :: MetodoCoccion -> Int 
-demoraMC (Horno Fuego minutos) = minutos 
-demoraMC Hervido 			   = 30 
-demoraMC Frito   			   = 15
+demoraMC (Horno fuego minutos) = minutos 
+demoraMC Hervido 		       = 30 
+demoraMC Frito   		       = 15
+
+-----------------------------------
+-- Tipos recursivos 👽
+
+-- El siguiente tipo de datos sirve para reprensetar recetas. El primer
+-- parámetro de Agregar representa el peso en gramos.
+
+data Receta = Empezar
+		    | Agregar Int Ingrediente Receta 
+		    | Cocinar MetodoCoccion Receta 
+		    deriving Show
+
+-- Representar la siguiente receta para una pizza:
+
+-- "Estirar el bollo previamente preparado (200g) sobre una pizzera
+-- desde el centro hacia los bordes. Pincelar con puré de tomates (150g).
+-- Llevar a horno fuerte durante 10 minutos. Agregar queso muzzarella rallado (100g).
+-- Llevar a horno moderado durante 20 minutos."
+
+recetaParaPizza :: Receta 
+recetaParaPizza =
+		Cocinar (Horno Moderado 20)
+		(Agregar 100 queso 
+		(Cocinar (Horno Fuerte 10)
+		(Agregar 150 tomate 
+		(Agregar 200 bollo Empezar))))
