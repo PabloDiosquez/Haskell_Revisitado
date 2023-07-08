@@ -127,6 +127,7 @@ recetaParaPizza =
 
 -- Algunas funciones sobre recetas 😻
 
+-- 1️⃣
 -- Propósito:
 -- Describe la cantidad de calorías que aporta en total la comida terminada, teniendo en cuenta
 -- el valor energético y la cantidad incorporada de cada ingrediente.
@@ -147,3 +148,16 @@ kCalTotalesR (Cocinar _ receta) = kCalTotalesR receta
 --
 kCalTotalesI :: Int -> Ingrediente -> Int
 kCalTotalesI gramos (MKI _ _ valorEnergetico) = div (gramos * valorEnergetico) 100
+
+-- 2️⃣  
+-- Propósito:
+-- Describe el tiempo que demora en total la cocción, despreciando el tiempo de incorporar 
+-- los ingredientes.
+-- Precondiciones:
+-- No tiene (es una función total).
+--
+tiempoCoccionR :: Receta -> Int 
+tiempoCoccionR Empezar                        = 0  
+tiempoCoccionR (Agregar _ _ receta)           = tiempoCoccionR receta   
+tiempoCoccionR (Cocinar metodoCoccion receta) = 
+	(demoraMC metodoCoccion) + tiempoCoccionR receta  
