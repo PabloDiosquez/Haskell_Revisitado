@@ -78,3 +78,22 @@ origenI (MKI _ origen _) = origen
 -- 
 valorEnergeticoI :: Ingrediente -> Int 
 valorEnergeticoI (MKI _ _ valorEnergetico) = valorEnergetico 
+
+-- Tipos suma 🥨
+
+data Fuego = Fuerte | Moderado | Suave 
+	deriving Show
+
+data MetodoCoccion = Horno Fuego Int 
+				   | Hervido
+				   | Frito 
+				   deriving Show
+
+-- Definir la función demoraMC :: MetodoCoccion -> Int suponiendo que el segundo parámetro de Horno
+-- representa una cantidad de minutos de horno, mientras que hervir demora 30 minutos y freír demora
+-- 15 minutos.
+
+demoraMC :: MetodoCoccion -> Int 
+demoraMC (Horno Fuego minutos) = minutos 
+demoraMC Hervido 			   = 30 
+demoraMC Frito   			   = 15
