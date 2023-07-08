@@ -160,4 +160,39 @@ tiempoCoccionR :: Receta -> Int
 tiempoCoccionR Empezar                        = 0  
 tiempoCoccionR (Agregar _ _ receta)           = tiempoCoccionR receta   
 tiempoCoccionR (Cocinar metodoCoccion receta) = 
-	(demoraMC metodoCoccion) + tiempoCoccionR receta  
+	(demoraMC metodoCoccion) + tiempoCoccionR receta 
+
+
+-- 3️⃣
+-- Propósito:
+-- Indica si la receta dada es apta para veganos.
+-- Precondiciones:
+-- No tiene (es una función total).
+-- Observaciones:
+-- Una receta es apta para veganos si no tiene ingredientes de origen animal.
+--
+aptoParaVeganos :: Receta -> Bool 
+aptoParaVeganos Empezar                        = True 
+aptoParaVeganos (Agregar _ ingrediente receta) = 
+	not (esAnimal (origenI ingrediente)) && aptoParaVeganos receta 
+aptoParaVeganos (Cocinar _ receta)             = aptoParaVeganos receta
+
+-- 4️⃣
+-- Propósito:
+-- Indica si la receta dada requiere horno en su preparación.
+-- Precondiciones:
+-- No tiene (es una función total).
+-- 
+usaHornoR :: Receta -> Bool 
+usaHornoR Empezar                        = False  
+usaHornoR (Agregar _ _ receta)           = usaHornoR receta  
+usaHornoR (Cocinar metodoCoccion receta) = usaHornoMC metodoCoccion || usaHornoR receta 
+
+-- Propósito:
+-- Indica si el método de cocción usa horno.
+-- Precondiciones:
+-- No tiene (es una función total).
+--
+usaHornoMC :: MetodoCoccion -> Bool
+usaHornoMC (Horno _ _) = True 
+usaHornoMC _           = False
