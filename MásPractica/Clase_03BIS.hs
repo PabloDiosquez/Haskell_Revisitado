@@ -102,6 +102,6 @@ combinarMapas (mapa:mapas) = combinarInformacionM mapa (combinarMapas mapas)
 -- Los mapas no deben tener transportes con el mismo código.
 --
 combinarInformacionM :: Mapa -> Mapa -> Mapa 
-combinarInformacionM Vacio mapa = mapa 
+combinarInformacionM Vacio mapa               = mapa 
 combinarInformacionM (AT cod mt o d t m) mapa = 
-	combinarInformacionM m (AT cod mt o d t mapa)
+	AT cod mt o d t (combinarInformacionM m mapa) 
