@@ -95,7 +95,6 @@ combinarMapas :: [Mapa] -> Mapa
 combinarMapas []           = Vacio 
 combinarMapas (mapa:mapas) = combinarInformacionM mapa (combinarMapas mapas)
 
-
 -- Propósito:
 -- Combina la información de los dos mapas dados.
 -- Precondiciones:
