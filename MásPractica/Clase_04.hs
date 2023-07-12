@@ -124,6 +124,8 @@ type Cod    = Int
 
 type Ciudad = String
 
+-- Inv. de Rep.:
+-- El código de cada espía es único.
 data Agencia = Agente Cod Ciudad 
 			 | Jefe Cod Agencia Agencia 
 			   deriving Show
@@ -146,13 +148,48 @@ agencia1 = Jefe 1
 						(Agente 71 "Bruselas")
 						(Agente 72 "Bruselas")))
 
---			       	  Jefe 1 
--- 				    /        \
---			       /          \
---                /            \
---         Jefe 2             	Jefe 5
+--			       	   Jefe 1 
+-- 				   /           \
+--			      /             \
+--               /               \
+--         Jefe 2             	  Jefe 5
 --          /  \                  /    \ 
 --         /    \                /      \
 --   Jefe 3      Jefe 4      Jefe 6      Jefe 7
 --   /     \      /   \        / \         /  \
 -- Ag 31 Ag 32  Ag 41 Ag 42  Ag 61 Ag 62  Ag 71 Ag 72 
+
+-- Definir las siguientes funciones:
+
+-- 1.
+-- Propósito:
+-- Describe el número de espías de la agencia dada.
+nroEspias :: Agencia -> Int 
+nroEspias (Agente cod ciudad) 		   = 1
+nroEspias (Jefe cod agencia1 agencia2) = 
+	1 + nroEspias agencia1 + nroEspias agencia2
+
+-- 2.
+-- Propósito:
+-- Indica si el espía identificado por el código dado
+-- pertenece a la agencia dada.
+esEspiaDe :: Agencia -> Cod -> Bool
+esEspiaDe (Agente cod ciudad) cod'          = cod == cod'
+esEspiaDe (Jefe cod agencia1 agencia2) cod' = 
+	cod == cod' 			||
+	esEspiaDe agencia1 cod' ||
+	esEspiaDe agencia2 cod'   
+
+-- 3.
+-- Propósito:
+-- Describe una lista con los códigos que identifican a los
+-- agentes de la agencia dada que están radicados en la ciudad 
+-- dada.
+agentesRadicadosEn :: Agencia -> Ciudad -> [Cod]
+agentesRadicadosEn (Agente cod ciudad) ciudad'          =     
+	if ciudad == ciudad' 
+		then [cod]
+		else []  
+agentesRadicadosEn (Jefe cod agencia1 agencia2) ciudad' = 
+	agentesRadicadosEn agencia1 ciudad' ++
+	agentesRadicadosEn agencia2 ciudad' 
