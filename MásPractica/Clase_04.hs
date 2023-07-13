@@ -124,8 +124,6 @@ type Cod    = Int
 
 type Ciudad = String
 
--- Inv. de Rep.:
--- El código de cada espía es único.
 data Agencia = Agente Cod Ciudad 
 			 | Jefe Cod Agencia Agencia 
 			   deriving Show
@@ -147,6 +145,8 @@ agencia1 = Jefe 1
 					(Jefe 7 
 						(Agente 71 "Bruselas")
 						(Agente 72 "Bruselas")))
+
+-- Estructura del 🌳 de 🕵🏼‍
 
 --			       	   Jefe 1 
 -- 				   /           \
@@ -193,3 +193,41 @@ agentesRadicadosEn (Agente cod ciudad) ciudad'          =
 agentesRadicadosEn (Jefe cod agencia1 agencia2) ciudad' = 
 	agentesRadicadosEn agencia1 ciudad' ++
 	agentesRadicadosEn agencia2 ciudad' 
+
+-- 4.
+-- Propósito:
+-- Dada una agencia, describe la agencia que resulta de 
+-- cambiar el código de un espía del código viejo al código nuevo.
+-- 
+renombrarEspia :: Agencia -> Cod -> Cod -> Agencia
+renombrarEspia (Agente cod ciudad) codViejo codNuevo          = 
+	Agente (renombrarCodigo cod codViejo codNuevo) ciudad
+renombrarEspia (Jefe cod agencia1 agencia2) codViejo codNuevo = 
+	Jefe (renombrarCodigo cod codViejo codNuevo)
+	 (renombrarEspia agencia1 codViejo codNuevo)
+	 (renombrarEspia agencia2 codViejo codNuevo)
+
+-- Propósito:
+-- Actualiza el código de un espía, en caso de ser necesario.
+--
+renombrarCodigo :: Cod -> Cod -> Cod -> Cod 
+renombrarCodigo cod codViejo codNuevo = 
+	if cod == codViejo
+		then codNuevo
+		else cod 
+
+-- 5.
+-- Propósito:
+-- Dada una agencia y un código de espía, describe la subagencia
+-- comandada por dicho espía.
+-- Precondiciones:
+-- Debe existir un espía con el código dado en la agencia.
+--
+subagencia :: Agencia -> Cod -> Agencia 
+subagencia (Agente cod ciudad) cod'          = Agente cod ciudad
+subagencia (Jefe cod agencia1 agencia2) cod' = 
+	if cod == cod' 
+		then Jefe cod agencia1 agencia2
+		else if esEspiaDe agencia1 cod'
+				then subagencia agencia1 cod' 
+				else subagencia agencia2 cod'
