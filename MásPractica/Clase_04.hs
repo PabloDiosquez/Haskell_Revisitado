@@ -231,3 +231,33 @@ subagencia (Jefe cod agencia1 agencia2) cod' =
 		else if esEspiaDe agencia1 cod'
 				then subagencia agencia1 cod' 
 				else subagencia agencia2 cod'
+
+-- 6.
+-- Propósito:
+-- Dada una agencia y un código de espía, describe una lista de todos los códigos de espías subordinados
+-- al espía dado.
+-- Precondiciones:
+-- Debe existir en la agencia un espía con el código dado.
+-- 
+subordinados :: Agencia -> Cod -> [Cod]
+subordinados agencia cod =
+	todosLosEspias (subagencia agencia cod)
+
+-- Propósito:
+-- Describe una lista de todos los códigos de los espías de la agencia dada.
+-- Precondiciones:
+-- No tiene (es una función total).
+--
+todosLosEspias :: Agencia -> [Cod]
+todosLosEspias (Agente cod ciudad) 			= [cod]
+todosLosEspias (Jefe cod agencia1 agencia2) = 
+	[cod] ++ todosLosEspias agencia1 ++ todosLosEspias agencia2  
+
+-- 7.
+-- Propósito:
+-- Dada una agencia y un código de espía, describe la lista de todos los espías por los que hay que pasar,
+-- para llegar desde la raíz de la agencia hasta el espía indicado.
+-- Precondiciones:
+-- El código de espía debe pertenecer a la agencia.
+--
+caminoHasta :: Agencia -> Cod -> [Cod]
