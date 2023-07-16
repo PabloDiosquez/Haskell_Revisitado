@@ -255,9 +255,29 @@ todosLosEspias (Jefe cod agencia1 agencia2) =
 
 -- 7.
 -- Propósito:
--- Dada una agencia y un código de espía, describe la lista de todos los espías por los que hay que pasar,
--- para llegar desde la raíz de la agencia hasta el espía indicado.
--- Precondiciones:
--- El código de espía debe pertenecer a la agencia.
+-- Dada una agencia y un código de espía, desribe la lista de espías
+-- por los que hay que pasar para llegar desde la raíz de la agencia 
+-- hasta el espía indicado.
+-- Precondición: Debe haber un espía con el código indicado en la agencia dada.
+-- 
+caminoHasta :: Agencia -> Cod -> [Cod] 
+caminoHasta (Agente cod ciudad) cod' 	      = [cod] 
+caminoHasta (Jefe cod agencia1 agencia2) cod' = 
+	if cod' == cod 
+		then [cod]
+		else if esEspiaDe agencia1 cod' 
+				then cod : caminoHasta agencia1 cod' 
+				else cod : caminoHasta agencia2 cod' -- Seguro esEspiaDe agencia2
+
+-- 8.
+-- Propósito:
+-- Dada una agencia y dos códigos de espía, describe la lista de
+-- espías por los que hay que pasar para llegar desde el primer 
+-- espía indicado hasta el segundo espía indicado.
+-- Precondición: 
+-- Los dos códigos de espía deben pertenecer a la agencia.
+-- El segundo código debe ser un subordinado del primero.
 --
-caminoHasta :: Agencia -> Cod -> [Cod]
+intermediarios :: Agencia -> Cod -> Cod -> [Cod] 
+intermediarios agencia cod1 cod2 = 
+	caminoHasta (subagencia agencia cod1) cod2
