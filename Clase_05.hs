@@ -153,6 +153,31 @@ menorFibonacciDesdeDesde n k
 	| fibo k >= n = fibo k 
 	| otherwise   = menorFibonacciDesdeDesde n (k+1)
 
+-- 10.
+-- Propósito:
+-- Indica si el número dado es igual a la suma de los m primeros números primos, para algún m.
+-- Precondiciones:
+-- El número dado debe ser >= 0.
+--
+esSumaInicialDePrimos :: Int -> Bool 
+esSumaInicialDePrimos n = menorSumaInicialDePrimosDesde n == n 
+
+--
+menorSumaInicialDePrimosDesde :: Int -> Int 
+menorSumaInicialDePrimosDesde n = menorSumaInicialDePrimosDesdeDesde n 1 
+
+--
+menorSumaInicialDePrimosDesdeDesde :: Int -> Int -> Int 
+menorSumaInicialDePrimosDesdeDesde n k 
+	| sumaInicialDePrimosHasta k >= n = sumaInicialDePrimosHasta k 
+	| otherwise                       = menorSumaInicialDePrimosDesdeDesde n (k+1)
+
+--
+sumaInicialDePrimosHasta :: Int -> Int 
+sumaInicialDePrimosHasta 0 = 0
+sumaInicialDePrimosHasta n = sumaInicialDePrimosHasta(n-1) + nEsimoPrimo n  
+
+
 -- FUNCIONES AUXILIARES 🆘
 
 -- Propósito: 
