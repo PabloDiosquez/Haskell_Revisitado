@@ -136,6 +136,23 @@ mayorFactorialHastaDesde m k =
 esFactorial :: Int -> Bool 
 esFactorial n = menorFactorialDesde n == n 
 
+-- 9.
+-- Propósito:
+-- Indica si el número dado es un número de Fibonacci.
+-- Precondiciones:
+-- El número dado debe ser >= 0.
+--
+esFibonacci :: Int -> Bool 
+esFibonacci n = menorFibonacciDesde n == n 
+
+menorFibonacciDesde :: Int -> Int 
+menorFibonacciDesde n = menorFibonacciDesdeDesde n 1 
+
+menorFibonacciDesdeDesde :: Int -> Int -> Int 
+menorFibonacciDesdeDesde n k 
+	| fibo k >= n = fibo k 
+	| otherwise   = menorFibonacciDesdeDesde n (k+1)
+
 -- FUNCIONES AUXILIARES 🆘
 
 -- Propósito: 
@@ -173,3 +190,13 @@ tieneDivisoresPropiosDesde n d
 factorial :: Int -> Int 
 factorial 0 = 1 
 factorial n = factorial(n-1)*n 
+
+-- Propósito:
+-- ▪ Describe el nésimo término de la sucesión de Fibonacci.
+-- Precondiciones:
+-- ▪ El número dado debe ser >= 0.
+--
+fibo :: Int -> Int 
+fibo n 
+	| n <= 1    = 1
+	| otherwise = fibo(n-1) + fibo(n-2)
