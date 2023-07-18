@@ -96,6 +96,20 @@ menorPrimoDesde d
 	| esPrimo d = d 
 	| otherwise = menorPrimoDesde (d+1) 
 
+-- 6.
+-- Propósito:
+-- Dado un número m, describe el mínimo n, n >= m tal que n = k!, para algún k natural.
+-- Precondiciones:
+-- No tiene (es una función total).
+--  
+menorFactorialDesde :: Int -> Int 
+menorFactorialDesde m = menorFactorialDesdeDesde m 1 
+
+menorFactorialDesdeDesde :: Int -> Int -> Int 
+menorFactorialDesdeDesde m k = 
+	if factorial k >= m 
+		then factorial k 
+		else menorFactorialDesdeDesde m (k+1)
 
 -- FUNCIONES AUXILIARES 🆘
 
@@ -125,3 +139,12 @@ tieneDivisoresPropiosDesde :: Int -> Int -> Bool
 tieneDivisoresPropiosDesde n d 
 	| d == n    = False
 	| otherwise = esDivisible n d || tieneDivisoresPropiosDesde n (d+1)
+
+-- Propósito:
+-- ▪ Describe el factorial del número dado.
+-- Precondiciones:
+-- ▪ El número dado debe ser >= 0.
+--
+factorial :: Int -> Int 
+factorial 0 = 1 
+factorial n = factorial(n-1)*n 
