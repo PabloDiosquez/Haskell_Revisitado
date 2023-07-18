@@ -111,6 +111,31 @@ menorFactorialDesdeDesde m k =
 		then factorial k 
 		else menorFactorialDesdeDesde m (k+1)
 
+-- 7.
+-- Propósito:
+-- Dado un número m, describe el máximo n, con n <= m tal que n = k!, para algún k natural.
+-- Precondiciones:
+-- El número dado debe ser >= 0.
+--
+mayorFactorialHasta :: Int -> Int 
+mayorFactorialHasta m = mayorFactorialHastaDesde m 1 
+
+mayorFactorialHastaDesde :: Int -> Int -> Int 
+mayorFactorialHastaDesde m k = 
+	if factorial k >= m 
+		then factorial(k-1)
+		else mayorFactorialHastaDesde m (k+1)
+
+-- 8.
+-- Propósito:
+-- Indica si el número dado es el factorial de algún número natural. Es decir, dado n natural
+-- indica si existe un k natural tal que n = k!.
+-- Precondiciones:
+-- El número dado debe ser >= 0.
+--
+esFactorial :: Int -> Bool 
+esFactorial n = menorFactorialDesde n == n 
+
 -- FUNCIONES AUXILIARES 🆘
 
 -- Propósito: 
