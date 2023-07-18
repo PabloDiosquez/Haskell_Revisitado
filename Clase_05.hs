@@ -172,11 +172,6 @@ menorSumaInicialDePrimosDesdeDesde n k
 	| sumaInicialDePrimosHasta k >= n = sumaInicialDePrimosHasta k 
 	| otherwise                       = menorSumaInicialDePrimosDesdeDesde n (k+1)
 
---
-sumaInicialDePrimosHasta :: Int -> Int 
-sumaInicialDePrimosHasta 0 = 0
-sumaInicialDePrimosHasta n = sumaInicialDePrimosHasta(n-1) + nEsimoPrimo n  
-
 
 -- FUNCIONES AUXILIARES 🆘
 
@@ -225,3 +220,8 @@ fibo :: Int -> Int
 fibo n 
 	| n <= 1    = 1
 	| otherwise = fibo(n-1) + fibo(n-2)
+
+--
+sumaInicialDePrimosHasta :: Int -> Int 
+sumaInicialDePrimosHasta 0 = 0
+sumaInicialDePrimosHasta n = sumaInicialDePrimosHasta(n-1) + nEsimoPrimo n
