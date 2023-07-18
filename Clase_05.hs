@@ -1,19 +1,19 @@
 module Clase_05
 where 
 
--- Recursión con funciones auxiliares
+-- Recursión con funciones auxiliares 🐱‍🏍
 
 -- 1.
-
 -- Propósito: 
 -- ▪ Describe la suma de los divisores de n hasta h.
 -- Precondiciones: 
 -- ▪ Los números dados deben ser >= 0.
+--
 sumaDivisoresHasta :: Int -> Int -> Int 
 sumaDivisoresHasta _ 0 = 0 
 sumaDivisoresHasta n h 
-					   | esDivisible n h = sumaDivisoresHasta n (h-1) + h 
-					   | otherwise       = sumaDivisoresHasta n (h-1)
+	| esDivisible n h = sumaDivisoresHasta n (h-1) + h 
+	| otherwise       = sumaDivisoresHasta n (h-1)
 
 
 -- Una pequeña variante ... 🎃
@@ -22,12 +22,12 @@ sumaDivisoresHasta n h
 -- ▪ Describe la suma de los divisores de n desde d.
 -- Precondiciones: 
 -- ▪ Los números dados deben ser >= 0.
-
+--
 sumaDivisoresDesde :: Int -> Int -> Int 
 sumaDivisoresDesde n d 
-					   | d == n        = n  
-					   | esDivisible n d = d + sumaDivisoresDesde n (d+1)
-					   | otherwise       =     sumaDivisoresDesde n (d+1) 
+	| d == n        = n  
+	| esDivisible n d = d + sumaDivisoresDesde n (d+1)
+	| otherwise       =     sumaDivisoresDesde n (d+1) 
 
 
 -- 2.
@@ -35,20 +35,19 @@ sumaDivisoresDesde n d
 -- ▪ Describe la suma de los divisores del número dado.
 -- Precondiciones: 
 -- ▪ El número dado debe ser >= 0.
-
+--
 sumaDivisores :: Int -> Int
 sumaDivisores n = sumaDivisoresHasta n n 
 
 sumaDivisores' :: Int -> Int 
 sumaDivisores' n = sumaDivisoresDesde n 1
 
-
 -- 3.
 -- Propósito: 
 -- ▪ Describe el menor divisor (mayor que 1) de un número natural n.
 -- Precondiciones:
 -- ▪ El número n debe ser >= 2.
-
+--
 menorDivisor :: Int -> Int
 menorDivisor n = menorDivisorDesde n 2 
 
@@ -56,26 +55,25 @@ menorDivisor n = menorDivisorDesde n 2
 -- Precondiciones: 
 -- ▪ El número n debe ser >= 2.
 -- ▪ El número d debe ser <= n.
-
+--
 menorDivisorDesde :: Int -> Int -> Int 
-menorDivisorDesde n d | esDivisible n d = d 
-					  | otherwise 		= menorDivisorDesde n (d+1)
-
+menorDivisorDesde n d 
+	| esDivisible n d = d 
+	| otherwise 	  = menorDivisorDesde n (d+1)
 
 -- 4.
 -- Propósito: 
 -- ▪ Indica si el número n es primo o no.
 -- Precondiciones: 
 -- ▪ El número n debe ser un número >= 0.
-
+--
 esPrimo :: Int -> Bool 
 esPrimo n = (n > 1) && (menorDivisor n == n)
 
 -- Una versión alternativa de la función esPrimo ... 🦜  
-
+--
 esPrimo' :: Int -> Bool
 esPrimo' n = (n > 1) && not (tieneDivisoresPropios n)
-
 
 -- 5.
 -- Propósito:
@@ -83,7 +81,7 @@ esPrimo' n = (n > 1) && not (tieneDivisoresPropios n)
 --   el tercero es el 5, etc.))
 -- Precondiciones:
 -- ▪ El número n debe ser >= 1.
-
+--
 nEsimoPrimo :: Int -> Int 
 nEsimoPrimo 1 = 2 
 nEsimoPrimo n = menorPrimoDesde (nEsimoPrimo (n-1) + 1)
@@ -92,11 +90,11 @@ nEsimoPrimo n = menorPrimoDesde (nEsimoPrimo (n-1) + 1)
 -- ▪ Describe el menor primo desde el número d.
 -- Precondiciones:
 -- ▪ No tiene (es una función total).
-
+--
 menorPrimoDesde :: Int -> Int 
 menorPrimoDesde d 
-				  | esPrimo d = d 
-				  | otherwise = menorPrimoDesde (d+1) 
+	| esPrimo d = d 
+	| otherwise = menorPrimoDesde (d+1) 
 
 
 -- FUNCIONES AUXILIARES 🆘
@@ -105,7 +103,7 @@ menorPrimoDesde d
 -- ▪ Indica si el primer número es divisible por el segundo.
 -- Precondiciones:
 -- ▪ No tiene (es una función total).
-
+--
 esDivisible :: Int -> Int -> Bool 
 esDivisible x y = mod x y == 0
 
@@ -113,7 +111,7 @@ esDivisible x y = mod x y == 0
 -- ▪ Indica si el número n tiene divisores propios. 
 -- Precondiciones: 
 -- ▪ El número n debe ser un número natural > 1.
-
+--
 tieneDivisoresPropios :: Int -> Bool 
 tieneDivisoresPropios n = tieneDivisoresPropiosDesde n 2
 
@@ -122,8 +120,8 @@ tieneDivisoresPropios n = tieneDivisoresPropiosDesde n 2
 -- Precondiciones:
 -- ▪ El número n debe ser un número natural > 1.
 -- ▪ El número d debe ser un número natural <= n.
-
+--
 tieneDivisoresPropiosDesde :: Int -> Int -> Bool 
 tieneDivisoresPropiosDesde n d 
-								| d == n    = False
-								| otherwise = esDivisible n d || tieneDivisoresPropiosDesde n (d+1)
+	| d == n    = False
+	| otherwise = esDivisible n d || tieneDivisoresPropiosDesde n (d+1)
