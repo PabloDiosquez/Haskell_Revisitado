@@ -189,6 +189,19 @@ esSumaDeDosPrimosAux n k
 	| esPrimo k && esPrimo(n-k) = True 
 	| otherwise = esSumaDeDosPrimosAux n (k+1) 
 
+-- 14.
+-- Conjetura de Christian Goldbach, 1742: Todo número par mayor que 2 puede escribirse como suma dedos
+-- números primos. Escribir una función que pruebe la conjetura hasta un cierto punto.
+-- goldbach :: Int -> Bool (hasta al menos 4.10**18 debería ser cierto).
+--
+goldbach :: Int -> Bool 
+goldbach 4 = True 
+goldbach n = 
+	if esPar n 
+		then esSumaDeDosPrimos n && goldbach(n-2)
+		else goldbach(n-1)
+		where esPar n = mod n 2 == 0  
+
 
 -- FUNCIONES AUXILIARES 🆘
 
