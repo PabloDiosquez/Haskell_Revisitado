@@ -187,7 +187,7 @@ esSumaDeDosPrimosAux :: Int -> Int -> Bool
 esSumaDeDosPrimosAux n k | k > n = False
 esSumaDeDosPrimosAux n k 
 	| esPrimo k && esPrimo(n-k) = True 
-	| otherwise = esSumaDeDosPrimosAux n (k+1) 
+	| otherwise                 = esSumaDeDosPrimosAux n (k+1) 
 
 -- 14.
 -- Conjetura de Christian Goldbach, 1742: Todo número par mayor que 2 puede escribirse como suma dedos
@@ -202,6 +202,26 @@ goldbach n =
 		else goldbach(n-1)
 		where esPar n = mod n 2 == 0  
 
+-- 15.
+-- Propósito:
+-- Describe la cantidad de pares de primos gemelos (a, b) que verifican que b <= que el número dado.
+-- Precondiciones:
+-- El número dado debe ser > 0.
+-- Observaciones:
+-- Los números naturales a y b forman un par de primos gemelos si b = a+2 y tanto a como b son primos.
+--
+primosGem :: Int -> Int 
+primosGem n = primosGemDesde n 1 
+
+primosGemDesde :: Int -> Int -> Int
+primosGemDesde n d = 
+	if d > n
+		then 0
+		else if esPrimo(d-2) && esPrimo d  
+				then 1 + primosGemDesde n (d+1)
+				else     primosGemDesde n (d+1)
+
+ 
 
 -- FUNCIONES AUXILIARES 🆘
 
