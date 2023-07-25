@@ -173,6 +173,10 @@ menorSumaInicialDePrimosDesdeDesde n k
 	| otherwise                       = menorSumaInicialDePrimosDesdeDesde n (k+1)
 
 -- 11.
+-- Propósito:
+-- Describe un número m entre n1 y n2 en donde la función sumaDivisores tome el valor máximo.
+-- Precondiciones:
+-- El número dado debe ser >= 0.
 --
 tomaValorMax :: Int -> Int -> Int 
 tomaValorMax n1 n2 = tomaValorMaxDesdeHasta n1 n2 n1 n2 
@@ -185,6 +189,10 @@ tomaValorMaxDesdeHasta n1 n2 d h
 	| otherwise                          = tomaValorMaxDesdeHasta n1 n2 (d+1) h  
  
 -- 12.
+-- Propósito:
+-- Describe un número m entre n1 y n2 en donde la función sumaDivisores tome el valor mínimo.
+-- Precondiciones:
+-- Debe ser n1 <= n2 y ambos >= 0.
 --
 tomaValorMin :: Int -> Int -> Int 
 tomaValorMin n1 n2 = tomaValorMinDesdeHasta n1 n2 n1 n2 
