@@ -229,7 +229,21 @@ proxPrimosGem :: Int -> (Int, Int)
 proxPrimosGem n = 
 	if esPrimo n && esPrimo(n+2) 
 		then (n, n+2)
-		else proxPrimosGem (n+1)   
+		else proxPrimosGem (n+1) 
+
+-- 17.
+-- Propósito:
+-- Describe la cantidad de reducciones del número dado en la secuencia de Collatz, hasta llegar al 1.
+-- Precondiciones:
+-- El número dado debe ser > 0.
+-- 
+largoSecuencia :: Int -> Int 
+largoSecuencia 1 = 0 
+largoSecuencia n = 
+	if esPar n 
+		then 1 + largoSecuencia (div n 2)
+		else 1 + largoSecuencia (3*n + 1)  
+		where esPar n = mod n 2 == 0 
 
 -- FUNCIONES AUXILIARES 🆘
 
