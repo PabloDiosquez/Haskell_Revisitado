@@ -221,7 +221,15 @@ primosGemDesde n d =
 				then 1 + primosGemDesde n (d+1)
 				else     primosGemDesde n (d+1)
 
- 
+-- 16.
+-- Conjetura de los primos gemelos: Existen infinitos pares de primos gemelos. Implementar la función
+-- proxPrimosGem :: Int -> (Int, Int) que dado n devuelve el primer par de primos gemelos (a,b) tal que a > n.
+--
+proxPrimosGem :: Int -> (Int, Int) 
+proxPrimosGem n = 
+	if esPrimo n && esPrimo(n+2) 
+		then (n, n+2)
+		else proxPrimosGem (n+1)   
 
 -- FUNCIONES AUXILIARES 🆘
 
