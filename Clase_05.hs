@@ -172,6 +172,29 @@ menorSumaInicialDePrimosDesdeDesde n k
 	| sumaInicialDePrimosHasta k >= n = sumaInicialDePrimosHasta k 
 	| otherwise                       = menorSumaInicialDePrimosDesdeDesde n (k+1)
 
+-- 11.
+--
+tomaValorMax :: Int -> Int -> Int 
+tomaValorMax n1 n2 = tomaValorMaxDesdeHasta n1 n2 n1 n2 
+
+--
+tomaValorMaxDesdeHasta :: Int -> Int -> Int -> Int -> Int
+tomaValorMaxDesdeHasta n1 n2 d h 
+	| d > h                              = n1   
+ 	| sumaDivisores d > sumaDivisores n1 = tomaValorMaxDesdeHasta d n2 (d+1) h 
+	| otherwise                          = tomaValorMaxDesdeHasta n1 n2 (d+1) h  
+ 
+-- 12.
+--
+tomaValorMin :: Int -> Int -> Int 
+tomaValorMin n1 n2 = tomaValorMinDesdeHasta n1 n2 n1 n2 
+
+-- 
+tomaValorMinDesdeHasta :: Int -> Int -> Int -> Int -> Int
+tomaValorMinDesdeHasta n1 n2 d h 
+	| d > h 							 = n1 
+	| sumaDivisores d < sumaDivisores n1 = tomaValorMinDesdeHasta d n2 (d+1) h 
+	| otherwise                          = tomaValorMinDesdeHasta n1 n2 (d+1) h 
 
 -- 13.
 -- Propósito:
