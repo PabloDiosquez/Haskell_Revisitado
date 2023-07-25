@@ -173,6 +173,23 @@ menorSumaInicialDePrimosDesdeDesde n k
 	| otherwise                       = menorSumaInicialDePrimosDesdeDesde n (k+1)
 
 
+-- 13.
+-- Propósito:
+-- Indica si el número dado puede escribirse como suma de dos números primos.
+-- Precondiciones:
+-- El número dado debe ser > 0.
+-- 
+esSumaDeDosPrimos :: Int -> Bool
+esSumaDeDosPrimos n = esSumaDeDosPrimosAux n 0
+
+--
+esSumaDeDosPrimosAux :: Int -> Int -> Bool
+esSumaDeDosPrimosAux n k | k > n = False
+esSumaDeDosPrimosAux n k 
+	| esPrimo k && esPrimo(n-k) = True 
+	| otherwise = esSumaDeDosPrimosAux n (k+1) 
+
+
 -- FUNCIONES AUXILIARES 🆘
 
 -- Propósito: 
