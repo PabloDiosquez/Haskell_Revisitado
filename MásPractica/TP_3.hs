@@ -37,4 +37,65 @@ cantHojas Nil           = 0
 cantHojas (Bin izq der) =
 	if esNil izq && esNil der 
 		then 1 
-		else cantHojas izq + cantNodos der 
+		else cantHojas izq + cantNodos der
+
+-- 6.
+-- Describe la altura del árbol (rama más larga).
+altura :: Arbol -> Int 
+altura Nil = 0 
+altura (Bin izq der) = 
+	1 + max altura izq altura der 
+
+-- 
+-- TP 3.
+data Tree a = Empty  
+		    | NodeT a (Tree a) (Tree a)
+			  deriving Show
+
+-- 1. 
+-- Describe la suma de los elementos de un árbol binario de enteros.
+sumarT :: Tree Int -> Int 
+sumarT Empty             = 0
+sumarT (NodeT n izq der) = 
+	n + sumarT izq + sumarT der    
+
+-- 2.
+-- Describe la cantidad de elementos (el tamaño) del árbol binario dado. 
+sizeT :: Tree a -> Int 
+sizeT Empty  			= 0 
+sizeT (NodeT n izq der) = 
+	1 + sizeT izq + sizeT der 
+
+-- 3.
+-- Dado un árbol de enteros, describe un nuevo árbol con el doble de cada número del árbol dado.
+mapDobleT :: Tree Int -> Tree Int 
+mapDobleT Empty 			= Empty
+mapDobleT (NodeT n izq der) = 
+	NodeT (doble n) (mapDobleT izq) (mapDobleT der)
+
+-- 4. 
+-- Dado un árbol de direcciones, describe un nuevo árbol con la dirección opuesta para cada elemento del
+-- árbol dado. 
+mapOpuestoT :: Tree Dir -> Tree Dir 
+mapOpuestoT Empty 				= Empty
+mapOpuestoT (NodeT dir izq der) = 
+	NodeT (opuesto dir) (mapOpuestoT izq) (mapOpuestoT der)
+
+
+-- Funciones y Tipos auxiliares 🐱‍🏍 
+--
+data Dir = Norte 
+		 | Este
+		 | Sur
+		 | Oeste
+		   deriving Show
+
+-- Describe la dirección opuesta a la dada.
+opuesto :: Dir -> Dir
+opuesto Norte = Sur 
+opuesto Este  = Oeste 
+opuesto Sur   = Norte 
+opuesto Oeste = Este  
+
+doble :: Int -> Int 
+doble x = 2*x
