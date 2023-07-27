@@ -81,6 +81,20 @@ mapOpuestoT Empty 				= Empty
 mapOpuestoT (NodeT dir izq der) = 
 	NodeT (opuesto dir) (mapOpuestoT izq) (mapOpuestoT der)
 
+-- 5.
+-- Dado un árbol de palabras, describe un nuevo árbol con la longitud de cada palabra.
+mapLongitudesT :: Tree String -> Tree Int 
+mapLongitudesT Empty 				   = Empty 
+mapLongitudesT (NodeT palabra izq der) = 
+	NodeT (len palabra) (mapLongitudesT izq) (mapLongitudesT der)
+
+-- 6.
+-- Indica si el elemento dado pertenece al árbol dado.
+perteneceT :: Eq a => a -> Tree a -> Bool 
+perteneceT _ Empty 			   = False 
+perteneceT x (NodeT a izq der) = 
+	x == a | perteneceT x izq | perteneceT x der     
+
 
 -- Funciones y Tipos auxiliares 🐱‍🏍 
 --
@@ -97,5 +111,12 @@ opuesto Este  = Oeste
 opuesto Sur   = Norte 
 opuesto Oeste = Este  
 
+--
+-- Describe la longitud de la lista dada.
+len :: [a] -> Int 
+len []     = 0
+len (x:xs) = 1 + len xs  
+
+-- Describe el doble del número dado.
 doble :: Int -> Int 
 doble x = 2*x
