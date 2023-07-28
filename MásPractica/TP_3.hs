@@ -44,7 +44,7 @@ cantHojas (Bin izq der) =
 altura :: Arbol -> Int 
 altura Nil = 0 
 altura (Bin izq der) = 
-	1 + max altura izq altura der 
+	1 + max (altura izq) (altura der) 
 
 -- 
 -- TP 3.
@@ -93,7 +93,7 @@ mapLongitudesT (NodeT palabra izq der) =
 perteneceT :: Eq a => a -> Tree a -> Bool 
 perteneceT _ Empty 			   = False 
 perteneceT x (NodeT a izq der) = 
-	x == a | perteneceT x izq | perteneceT x der 
+	x == a || perteneceT x izq || perteneceT x der 
 
 -- 7.
 -- 
@@ -102,8 +102,42 @@ aparicionesT _ Empty = 0
 aparicionesT x (NodeT a izq der) = 
 	if x == a
 		then 1 + aparicionesT a izq + aparicionesT a der 
-		else     aparicionesT a izq + aparicionesT a der    
+		else     aparicionesT a izq + aparicionesT a der 
 
+-- 8.
+-- Dado un árbol de personas describe el promedio de las edades de las mismas.
+-- Pre: El árbol dado no debe ser vacío.
+promedioEdadesT :: Tree Persona -> Int 
+promedioEdadesT arbolDePersonas = 
+	div (sumaEdadesT arbolDePersonas) (sizeT arbolDePersonas) 
+
+-- Describe la suma de las edades de las personas del árbol dado.
+sumaEdadesT :: Tree Persona -> Int 
+sumaEdadesT Empty                   = 0
+sumaEdadesT (NodeT persona izq der) = 
+	edadP persona + (sumaEdadesT izq) + (sumaEdadesT der) 
+
+-- 9.
+-- Dados dos árboles describe un árbol t en el que ambos árboles son hijos de t, y en la raíz de
+-- t se guarda la suma de todos los elementos de los hijos de t.
+engancharYSumarEnRaiz :: Tree Int -> Tree Int -> Tree Int 
+engancharYSumarEnRaiz arbolA arbolB =
+	NodeT (sumarT arbolA + sumarT arbolB) arbolA arbolB 
+
+-- 10.
+-- Describe la cantidad de hojas que tiene el árbol dado.
+-- Obs: Una hoja es un nodo que no tiene hijos.
+leaves :: Tree a -> Int 
+leaves Empty 			 = 0 
+leaves (NodeT _ izq der) =
+	if isEmpty izq && isEmpty der 
+		then 1 
+		else leaves izq + leaves der  
+
+-- Indica si el árbol dado es Empty (vacío)
+isEmpty :: Tree a -> Bool 
+isEmpty Empty = True
+isEmpty _     = False 
 
 -- Funciones y Tipos auxiliares 🐱‍🏍 
 -- Dados un elemento e y un árbol binario describe la cantidad de elementos del árbol que son iguales
