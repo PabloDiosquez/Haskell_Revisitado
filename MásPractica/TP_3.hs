@@ -93,11 +93,21 @@ mapLongitudesT (NodeT palabra izq der) =
 perteneceT :: Eq a => a -> Tree a -> Bool 
 perteneceT _ Empty 			   = False 
 perteneceT x (NodeT a izq der) = 
-	x == a | perteneceT x izq | perteneceT x der     
+	x == a | perteneceT x izq | perteneceT x der 
+
+-- 7.
+-- 
+aparicionesT :: Eq a => a -> Tree a -> Int 
+aparicionesT _ Empty = 0
+aparicionesT x (NodeT a izq der) = 
+	if x == a
+		then 1 + aparicionesT a izq + aparicionesT a der 
+		else     aparicionesT a izq + aparicionesT a der    
 
 
 -- Funciones y Tipos auxiliares 🐱‍🏍 
---
+-- Dados un elemento e y un árbol binario describe la cantidad de elementos del árbol que son iguales
+-- a e.
 data Dir = Norte 
 		 | Este
 		 | Sur
@@ -110,6 +120,20 @@ opuesto Norte = Sur
 opuesto Este  = Oeste 
 opuesto Sur   = Norte 
 opuesto Oeste = Este  
+
+--
+type Nombre = String
+type Edad   = Int
+
+data Persona = MKPersona Nombre Edad deriving Show
+
+-- Describe el nombre de la persona dada.
+nombreP :: Persona -> Nombre 
+nombreP (MKPersona nombre edad) = nombre 
+
+-- Describe la edad de la persona dada.
+edadP :: Persona -> Edad  
+edadP (MKPersona nombre edad) = edad 
 
 --
 -- Describe la longitud de la lista dada.
