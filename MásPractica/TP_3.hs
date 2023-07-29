@@ -139,6 +139,27 @@ isEmpty :: Tree a -> Bool
 isEmpty Empty = True
 isEmpty _     = False 
 
+-- 11.
+-- Describe la altura del árbol dado.
+heightT :: Tree a -> Int 
+heightT Empty 			  = 0 
+heightT (NodeT _ izq der) = 
+	1 + maximo (heightT izq) (heightT der) 
+
+-- 12.
+-- Dado un árbol describe el número de nodos del mismo que no son hojas.
+nodesT :: Tree a -> Int 
+nodesT Empty             = 0 
+nodesT (NodeT a izq der) = 
+	if isEmpty izq && isEmpty der 
+		then 0 
+		else 1 + nodesT izq + nodesT der 
+
+--
+nodesT' :: Tree a -> Int 
+nodesT' tree = sizeT tree - leaves tree 
+
+
 -- Funciones y Tipos auxiliares 🐱‍🏍 
 -- Dados un elemento e y un árbol binario describe la cantidad de elementos del árbol que son iguales
 -- a e.
@@ -178,3 +199,7 @@ len (x:xs) = 1 + len xs
 -- Describe el doble del número dado.
 doble :: Int -> Int 
 doble x = 2*x
+
+-- Describe el número más grande entre los dos números dados.
+maximo :: Int -> Int -> Int 
+maximo x y = if x >= y then x else y 
