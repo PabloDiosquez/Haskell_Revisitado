@@ -159,6 +159,21 @@ nodesT (NodeT a izq der) =
 nodesT' :: Tree a -> Int 
 nodesT' tree = sizeT tree - leaves tree 
 
+-- 13.
+-- Dado un árbol describe el árbol resultante de intercambiar el hijo izquierdo con el hijo derecho
+-- en cado nodo del árbol dado.
+espejoT :: Tree a -> Tree a 
+espejoT Empty 			  = Empty 
+espejoT (NodeT a izq der) = 
+	NodeT a (espejoT der) (espejoT izq)
+
+-- 15.
+-- Describe una lista que representa el resultado de recorrer el árbol dado en modo preOrden.
+listPreOrder :: Tree a -> [a]
+listPreOrder Empty = [] 
+listPreOrder (NodeT a izq der) = 
+	a : (listPreOrder izq ++ listPreOrder der)  
+
 
 -- Funciones y Tipos auxiliares 🐱‍🏍 
 -- Dados un elemento e y un árbol binario describe la cantidad de elementos del árbol que son iguales
