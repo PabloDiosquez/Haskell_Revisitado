@@ -167,12 +167,26 @@ espejoT Empty 			  = Empty
 espejoT (NodeT a izq der) = 
 	NodeT a (espejoT der) (espejoT izq)
 
+-- 14.
+-- Describe una lista que representa el resultado de recorrer el árbol dado en modo in-orden.
+listInOrder :: Tree a -> [a]
+listInOrder Empty 			  = []
+listInOrder (NodeT a izq der) = 
+	listInOrder izq ++ [a] ++ listInOrder der  
+
 -- 15.
--- Describe una lista que representa el resultado de recorrer el árbol dado en modo preOrden.
+-- Describe una lista que representa el resultado de recorrer el árbol dado en modo pre-orden.
 listPreOrder :: Tree a -> [a]
-listPreOrder Empty = [] 
+listPreOrder Empty 			   = [] 
 listPreOrder (NodeT a izq der) = 
-	a : (listPreOrder izq ++ listPreOrder der)  
+	a : (listPreOrder izq ++ listPreOrder der)
+
+-- 16.
+-- Describe una lista que representa el resultado de recorrer el árbol dado en modo post-orden.
+listPostOrder :: Tree a -> [a]
+listPostOrder Empty 			= []
+listPostOrder (NodeT a izq der) = 
+	listPostOrder izq ++ listPostOrder der ++ [a]  
 
 
 -- Funciones y Tipos auxiliares 🐱‍🏍 
