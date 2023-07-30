@@ -188,6 +188,25 @@ listPostOrder Empty 			= []
 listPostOrder (NodeT a izq der) = 
 	listPostOrder izq ++ listPostOrder der ++ [a]  
 
+-- 17.
+-- Dado un árbol de listas describe la concatenación de todas esas listas. 
+-- El recorrido debe ser in-orden.
+concatenarListasT :: Tree [a] -> [a]
+concatenarListasT Empty 			    = []
+concatenarListasT (NodeT lista izq der) = 
+	 concatenarListasT izq ++ lista ++ concatenarListasT der 
+
+-- 18.
+-- Dados un número n y un árbol describe la lista con los nodos de nivel n.
+-- Obs: El primer nivel de un árbol (su raı́z) es 0.
+-- Pre: Debe ser 0 <= n <= altura del árbol - 1.  
+levelN :: Int -> Tree a -> [a]
+levelN Empty 			   = []
+levelN n (NodeT a izq der) = 
+	if n == 1 
+		then [a]
+		else levelN (n-1) izq ++ levelN (n-1) der 
+
 
 -- Funciones y Tipos auxiliares 🐱‍🏍 
 -- Dados un elemento e y un árbol binario describe la cantidad de elementos del árbol que son iguales
