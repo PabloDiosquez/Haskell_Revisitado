@@ -232,8 +232,51 @@ longitudesDeNivelesT :: Tree a -> [Int]
 longitudesDeNivelesT arbol = 
 	longitudes (listPerLevel arbol) 
 
+-- ----------------------------------------------------------------------------------- -- 
+-- Expresiones aritméticas ✍🏼👨🏼‍🎓
+
+data Expresion = Constante Int 
+			   | ConsExpUnaria OpUn Expresion
+			   | ConsExpBinaria Expresion OpBin Expresion   
+			   deriving Show 
+
+data OpUn  = Neg | Inc | Dec deriving Show
+data OpBin = Suma | Resta | Mult | Div deriving Show 
+
+-- 1.
+-- Describe el valor de la expresión dada.
+-- Pre: Cuando la operación es división la expresión que representa el divisor no debe ser 0.
+eval :: Expresion -> Int 
+eval (Constante a)       						  = a 
+eval (ConsExpUnaria Neg expresion) 				  = - eval expresion
+eval (ConsExpUnaria Inc expresion) 				  = eval expresion + 1 
+eval (ConsExpUnaria Dec expresion)                = eval expresion - 1
+eval (ConsExpBinaria expresionA Suma expresionB)  = eval expresionA + eval expresionB 
+eval (ConsExpBinaria expresionA Resta expresionB) = eval expresionA - eval expresionB
+eval (ConsExpBinaria expresionA Mult expresionB)  = eval expresionA * eval expresionB 
+eval (ConsExpBinaria expresionA Div expresionB)   = div (eval expresionA) (eval expresionB) 
 
 
+-- 2. 
+-- Describe la expresión simplificada según los criterios establecidos en el enunciado.
+-- Pre: Cuando la operación es división la expresión que representa el divisor no debe ser 0.
+simplificar :: Expresion -> Expresion
+simplificar (ConsExpBinaria expresionA Suma (Constante 0))  = expresionA 
+simplificar (ConsExpBinaria (Constante 0) Suma expresionA)  = expresionA 
+simplificar (ConsExpBinaria expresionA Resta (Constante 0)) = expresionA 
+simplificar (ConsExpBinaria (Constante 0) Resta expresionA) = ConsExpUnaria Neg expresionA
+simplificar (ConsExpBinaria expresionA Mult (Constante 1))  = expresionA
+simplificar (ConsExpBinaria (Constante 1) Mult expresionA)  = expresionA
+simplificar (ConsExpBinaria expresionA Mult (Constante 0))  = Constante 0 
+simplificar (ConsExpBinaria (Constante 0) Mult expresionA)  = Constante 0 
+simplificar (ConsExpBinaria expresionA Div (Constante 1))   = expresionA
+simplificar (ConsExpBinaria (Constante 0) Div expresionA)   = Constante 0
+simplificar (ConsExpBinaria expresionA Suma (Constante 1))  = ConsExpUnaria Inc expresionA 
+simplificar (ConsExpBinaria expresionA Resta (Constante 1)) = ConsExpUnaria Dec expresionA 
+simplificar (ConsExpBinaria (Constante 1) Resta expresionA) = ConsExpUnaria Neg (ConsExpUnaria Dec expresionA)
+ 
+
+-- 
 -- Funciones y Tipos auxiliares 🐱‍🏍 
 -- Dados un elemento e y un árbol binario describe la cantidad de elementos del árbol que son iguales
 -- a e.
@@ -284,7 +327,7 @@ maximoList :: [Int] -> Int
 maximoList [x] 	  = x  
 maximoList (x:xs) = max x (maximoList xs)
 
---
+-- Describe una lista con las longitudes de los elementos de la lista dada.
 longitudes :: Foldable t => [t a] -> [Int]
 longitudes []     = [0]
 longitudes (x:xs) = length x : longitudes xs 
