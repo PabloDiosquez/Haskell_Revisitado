@@ -4,6 +4,9 @@ data Arbol = Nil
 		   | Bin Arbol Arbol
 		   deriving Show
 
+arbolA :: Tree Int
+arbolA = NodeT 1 (NodeT 2 (Empty) (NodeT 3 (NodeT 4 (Empty) (Empty)) (Empty))) (NodeT 1 (Empty) (Empty))
+
 -- Pequeñas funciones sobre árboles 🥐
 -- 1.
 -- Indica si el árbol dado es Nil (vacío).
@@ -201,11 +204,34 @@ concatenarListasT (NodeT lista izq der) =
 -- Obs: El primer nivel de un árbol (su raı́z) es 0.
 -- Pre: Debe ser 0 <= n <= altura del árbol - 1.  
 levelN :: Int -> Tree a -> [a]
-levelN Empty 			   = []
+levelN _ Empty 			   = []
 levelN n (NodeT a izq der) = 
-	if n == 1 
+	if n == 0 
 		then [a]
 		else levelN (n-1) izq ++ levelN (n-1) der 
+
+-- 19.
+-- Dado un árbol describe una lista de listas donde cada elemento representa un nivel del árbol dado.
+listPerLevel :: Tree a -> [[a]]
+listPerLevel arbol = recolectarElementosDelNivelDesde 0 arbol
+
+-- Describe una lista de listas donde cada elemento representa un nivel del árbol dado, desde el nivel k.
+recolectarElementosDelNivelDesde :: Int -> Tree a -> [[a]]
+recolectarElementosDelNivelDesde k arbol = 
+	if k == heightT arbol 
+		then []
+		else [levelN k arbol] ++ recolectarElementosDelNivelDesde (k+1) arbol 
+
+-- 20.
+-- 
+widthT :: Tree a -> Int
+widthT arbol = maximoList (longitudesDeNivelesT arbol) 
+
+-- 
+longitudesDeNivelesT :: Tree a -> [Int]
+longitudesDeNivelesT arbol = 
+	longitudes (listPerLevel arbol) 
+
 
 
 -- Funciones y Tipos auxiliares 🐱‍🏍 
@@ -251,3 +277,14 @@ doble x = 2*x
 -- Describe el número más grande entre los dos números dados.
 maximo :: Int -> Int -> Int 
 maximo x y = if x >= y then x else y 
+
+-- Describe el número más grande en la lista de enteros dada.
+-- Pre: La lista de números dada no debe ser vacía.
+maximoList :: [Int] -> Int
+maximoList [x] 	  = x  
+maximoList (x:xs) = max x (maximoList xs)
+
+--
+longitudes :: Foldable t => [t a] -> [Int]
+longitudes []     = [0]
+longitudes (x:xs) = length x : longitudes xs 
