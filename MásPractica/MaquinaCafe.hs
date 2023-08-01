@@ -23,10 +23,3 @@ mantenerMC    :: MaquinaCafe -> MaquinaCafe
 recaudacionMC :: MaquinaCafe -> Int  
 
 -- ------------------------------------------------------------
--- Desde el punto de vista del usuario 👨‍🦰
-
--- Describe la cantidad de cortados que se podrían consumir usando esta máquina de café.
-cuantosCortados :: MaquinaCafe -> Int 
-
--- Describe el total recaudado en todas las máquinas de café del local.
-totalRecaudacion :: [MaquinaCafe] -> Int 
