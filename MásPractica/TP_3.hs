@@ -232,6 +232,13 @@ longitudesDeNivelesT :: Tree a -> [Int]
 longitudesDeNivelesT arbol = 
 	longitudes (listPerLevel arbol) 
 
+-- Extra:
+-- Dada una lista de árboles describe la lista con todos los elementos de todos los árboles.
+--
+concatenarT :: [Tree a] -> [a] 
+concatenarT []		 = [] 
+concatenarT (as:ass) = aplanar (listPerLevel as) ++ concatenarT ass  
+
 -- ----------------------------------------------------------------------------------- -- 
 -- Expresiones aritméticas ✍🏼👨🏼‍🎓
 
@@ -265,16 +272,19 @@ simplificar (ConsExpBinaria expresionA Suma (Constante 0))  = expresionA
 simplificar (ConsExpBinaria (Constante 0) Suma expresionA)  = expresionA 
 simplificar (ConsExpBinaria expresionA Resta (Constante 0)) = expresionA 
 simplificar (ConsExpBinaria (Constante 0) Resta expresionA) = ConsExpUnaria Neg expresionA
+
+simplificar (ConsExpBinaria expresionA Suma (Constante 1))  = ConsExpUnaria Inc expresionA 
+simplificar (ConsExpBinaria expresionA Resta (Constante 1)) = ConsExpUnaria Dec expresionA 
+simplificar (ConsExpBinaria (Constante 1) Resta expresionA) = ConsExpUnaria Neg (ConsExpUnaria Dec expresionA)
+
 simplificar (ConsExpBinaria expresionA Mult (Constante 1))  = expresionA
 simplificar (ConsExpBinaria (Constante 1) Mult expresionA)  = expresionA
 simplificar (ConsExpBinaria expresionA Mult (Constante 0))  = Constante 0 
 simplificar (ConsExpBinaria (Constante 0) Mult expresionA)  = Constante 0 
+
 simplificar (ConsExpBinaria expresionA Div (Constante 1))   = expresionA
 simplificar (ConsExpBinaria (Constante 0) Div expresionA)   = Constante 0
-simplificar (ConsExpBinaria expresionA Suma (Constante 1))  = ConsExpUnaria Inc expresionA 
-simplificar (ConsExpBinaria expresionA Resta (Constante 1)) = ConsExpUnaria Dec expresionA 
-simplificar (ConsExpBinaria (Constante 1) Resta expresionA) = ConsExpUnaria Neg (ConsExpUnaria Dec expresionA)
- 
+
 
 -- 
 -- Funciones y Tipos auxiliares 🐱‍🏍 
@@ -331,3 +341,8 @@ maximoList (x:xs) = max x (maximoList xs)
 longitudes :: Foldable t => [t a] -> [Int]
 longitudes []     = [0]
 longitudes (x:xs) = length x : longitudes xs 
+
+-- Describe la lista formada por todos los elementos de las listas de la lista de listas dada.
+aplanar :: [[a]] -> [a]
+aplanar []       = [] 
+aplanar (xs:xss) = xs ++ aplanar xss 
