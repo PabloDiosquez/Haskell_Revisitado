@@ -45,3 +45,25 @@ sumas: 4
 multiplicaciones: 3 
 -- 
 total: 14 operaciones elementales
+
+-- Complejidad temporal 🕰
+-- Premisa 1️⃣: Cantidad de operaciones elementales en función del tamaño de los datos.
+-- Premisa 2️⃣: Vamos a estar interesados en el comportamiento asintótico.
+
+-- Determinar la eficiencia de las siguientes funciones:
+minino :: [Int] -> Int  -- O(n) lineal
+hayRepetidos :: [Int] -> Bool -- O(n^2) cuadrático
+milesimoElemento :: [Int] -> Int -- O(1) constante
+cantNodosT :: Tree a -> Int -- O(n)
+min3 :: Int -> Int -> Int -> Int -- O(1)
+longitud :: [a] -> Int -- O(n)
+append :: [a] -> [a] -> [a] --- O(n)
+altura :: Tree a -> Int -- O(n)
+iesimo :: Int -> [a] -> a -- O(n)  
+perteneceT :: Int -> Tree a -> Bool -- O(n)
+interseccion :: Eq a => [a] -> [a] -> [a] -- O(n*m) 
+reverse :: [a] -> [a] -- O(n^2) ➡ 1 + 2 + ... + n = n(n+1) / 2 
+tail :: [a] -> [a] -- O(1)
+promedio :: [Int] -> Int -- O(n)
+sinRepetidos :: Eq a => [a] -> [a] -- O(n^2)
+ordenar :: Ord a => [a] -> [a] -- O(n^2) ⚠
