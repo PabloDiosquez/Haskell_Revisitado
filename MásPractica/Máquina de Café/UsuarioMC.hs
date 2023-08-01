@@ -1,4 +1,3 @@
--- Desde el punto de vista del usuario 👨‍🦰
 
 import MaquinaCafe
 
@@ -12,4 +11,5 @@ cuantosCortados mc =
 -- Describe el total recaudado en todas las máquinas de café del local.
 totalRecaudacion :: [MaquinaCafe] -> Int 
 totalRecaudacion [] 	  = 0 
-totalRecaudacion (mc:mcs) = recaudacionMC mc + totalRecaudacion mcs 
+totalRecaudacion (mc:mcs) = recaudacionMC mc 
+								+ totalRecaudacion mcs 
