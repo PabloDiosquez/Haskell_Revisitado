@@ -5,8 +5,7 @@ module MaquinaCafe where
 
 data TipoDeCafe = CafeSolo 
 				| CafeDulce 
-				| CafeCortado 
-				 deriving Show  
+				| CafeCortado  
 
 -- Inicia una máquina de café nueva 
 nuevaMC 	  :: MaquinaCafe
@@ -28,7 +27,7 @@ data MaquinaCafe = MC Int -- cantidad de agua   (cc)
 					  Int -- cantidad de leche  (cc)
 					  Int -- cantidad de café   (gr)
 					  Int -- cantidad de azúcar (gr)
-					  Int -- recaudación        ($)
+					  Int -- recaudación        (💲)
 
 nuevaMC = MC 0 0 0 0 0
 
@@ -38,22 +37,55 @@ disponibleMC (MC agua leche cafe azucar _) tipoDeCafe =
  && cafe   >= cafeRequerido tipoDeCafe
  && azucar >= azucarRequerido tipoDeCafe
 
+pedirCafe (MC agua leche cafe azucar recaudacion) tipoDeCafe = 
+	MC 
+	(agua   - aguaRequerida tipoDeCafe)
+	(leche  - lecheRequerida tipoDeCafe)
+	(cafe   - cafeRequerido tipoDeCafe)
+	(azucar - azucarRequerido tipoDeCafe)
+	(recaudacion + precioCafe)
+
+mantenerMC _ = MC capacidadAgua 
+				  capacidadLeche 
+				  capacidadCafe 
+				  capacidadAzucar 
+				  0
+
+recaudacionMC (MC _ _ _ _ recaudacion) = recaudacion
+
+-- Funciones auxiliares 🐱‍🏍 
+
+precioCafe :: Int 
+precioCafe = 100  
+
+capacidadAgua :: Int 
+capacidadAgua = 20000
+
+capacidadLeche :: Int 
+capacidadLeche = 2000 
+
+capacidadCafe :: Int 
+capacidadCafe = 1000
+
+capacidadAzucar :: Int 
+capacidadAzucar = 1000 
+
 aguaRequerida :: TipoDeCafe -> Int 
-aguaRequerida CafeSolo    = ... 
-aguaRequerida CafeDulce   = ...
-aguaRequerida CafeCortado = ...
+aguaRequerida CafeSolo    = 200 
+aguaRequerida CafeDulce   = 200
+aguaRequerida CafeCortado = 150
 
 lecheRequerida :: TipoDeCafe -> Int 
-lecheRequerida CafeSolo    = ...
-lecheRequerida CafeDulce   = ...
-lecheRequerida CafeCortado = ...
+lecheRequerida CafeSolo    = 0
+lecheRequerida CafeDulce   = 0
+lecheRequerida CafeCortado = 50
 
 cafeRequerido :: TipoDeCafe -> Int 
-cafeRequerido CafeSolo    = ... 
-cafeRequerido CafeDulce   = ...
-cafeRequerido CafeCortado = ...
+cafeRequerido CafeSolo    = 40
+cafeRequerido CafeDulce   = 40
+cafeRequerido CafeCortado = 30
 
 azucarRequerido :: TipoDeCafe -> Int 
-azucarRequerido CafeSolo    = ...
-azucarRequerido CafeDulce   = ...
-azucarRequerido CafeCortado = ...
+azucarRequerido CafeSolo    = 0
+azucarRequerido CafeDulce   = 12
+azucarRequerido CafeCortado = 12
