@@ -19,17 +19,47 @@ proximoC    :: Cola a -> a
 -- Pre: La cola dada no debe estar vacía.
 desencolarC :: Cola a -> Cola a  
 
+-- -------------------------------------
 --- Implementación del módulo Cola 🕹
+
 --  Primer Variante: el próximo elemento se encuentra al principio de la lista.
 
-data Cola a = MkC [a]
+-- data Cola a = MkC [a]
 
-vaciaC 				 = MkC []  -- O(1)
+-- vaciaC 				 = MkC []  		  -- O(1)
 
-estaVaciaC (MkC xs)  = null xs -- O(1)
+-- estaVaciaC (MkC xs)  = null xs         -- O(1)
 
-encolarC x (MkC xs)  = MkC (xs ++ [x]) -- encolarC es lineal, o sea si la cola tiene n elementos, cuesta O(n).
+-- encolarC x (MkC xs)  = MkC (xs ++ [x]) -- encolarC es lineal, o sea si la cola tiene n elementos, cuesta O(n).
 
-proximoC (MkC xs)    = head xs -- O(1)
+-- proximoC (MkC xs)    = head xs 		  -- O(1)
 
-desencolarC (MkC xs) = MkC (tail xs) -- O(1)
+-- desencolarC (MkC xs) = MkC (tail xs)   -- O(1)
+
+-- -------------------------------------
+--- Segunda Variante: el próximo elemento se encuentra al final de la lista.
+
+data Cola a = MkC [a] 
+
+vaciaC 				 = MkC [] 		-- O(1)
+
+estaVaciaC (MkC xs)  = null xs 		-- O(1)
+
+encolarC x (MkC xs)  = MkC (x:xs)   -- O(1)
+
+proximoC (MkC xs)    = last xs 		-- O(n)
+
+desencolarC (MkC xs) = init xs 		-- O(n)
+
+-- 👁
+-- last :: [a] -> a 
+-- last (x:xs) =  
+-- 		if null xs 
+-- 			then x 
+-- 			else last xs 
+
+-- init :: [a] -> [a] 
+-- init (x:xs) = 
+-- 		if null xs 
+-- 			then []
+-- 			else x : init xs 
