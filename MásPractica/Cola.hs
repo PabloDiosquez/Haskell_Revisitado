@@ -39,17 +39,17 @@ desencolarC :: Cola a -> Cola a
 -- -------------------------------------
 --- Segunda Variante: el próximo elemento se encuentra al final de la lista.
 
-data Cola a = MkC [a] 
+-- data Cola a = MkC [a] 
 
-vaciaC 				 = MkC [] 		-- O(1)
+-- vaciaC 				 = MkC [] 		-- O(1)
 
-estaVaciaC (MkC xs)  = null xs 		-- O(1)
+-- estaVaciaC (MkC xs)  = null xs 		-- O(1)
 
-encolarC x (MkC xs)  = MkC (x:xs)   -- O(1)
+-- encolarC x (MkC xs)  = MkC (x:xs)    -- O(1)
 
-proximoC (MkC xs)    = last xs 		-- O(n)
+-- proximoC (MkC xs)    = last xs 		-- O(n)
 
-desencolarC (MkC xs) = init xs 		-- O(n)
+-- desencolarC (MkC xs) = init xs 		-- O(n)
 
 -- 👁
 -- last :: [a] -> a 
@@ -63,3 +63,36 @@ desencolarC (MkC xs) = init xs 		-- O(n)
 -- 		if null xs 
 -- 			then []
 -- 			else x : init xs 
+
+-- ---------------------------------------
+--- Tercer Variante: con dos listas ➡ frente y dorso (front y back)
+
+data Cola a = MkC [a] [a]
+
+-- vaciaC, estaVaciaC son O(1)
+-- encolarC es O(1)
+-- proximoC y desencolarC son O(n) en el peor caso (amortizado ⚠)
+
+vaciaC = MkC [] [] 
+
+estaVaciaC (MkC	frente dorso) = null frente && frente dorso 
+
+encolarC (MkC frente dorso) = MkC frente (x : dorso) -- O(1) 
+
+proximoC (MkC frente dorso) = 
+	if null frente 
+		then last dorso   -- O(n)
+		else head frente  -- O(1)
+
+desencolarC (MkC frente dorso) = 
+	if null frente
+		then MkC tail (reverse dorso) [] -- O(n)
+		else MkC (tail frente) dorso     -- O(1)
+
+-- reverse se puede hacer en O(n)
+-- reverse :: [a] -> [a] 
+-- reverse xs = reverse' xs [] 
+
+-- reverse' :: [a] -> [a] -> [a] 
+-- reverse' [] ys     = ys 
+-- reverse' (x:xs) ys = reverse' xs (x:ys) 
