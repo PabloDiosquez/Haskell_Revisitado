@@ -34,22 +34,24 @@ data Resumen = MkR Int -- cantidad de observaciones
 nuevoR = MkR 0 0 0 
 
 -- ▪ 
-agregarR o (MkR c m s) = 
-	MkR (c+1) (maximoEntre m o) (s+o)  
+agregarR observacion (MkR cantidad maximoAlMomento suma) = 
+	MkR (cantidad+1) 
+	    (maximoEntre maximoAlMomento observacion)
+	    (suma+observacion)  
 
 -- Describe el máximo entre los dos números dados.
 -- 
 maximoEntre :: Int -> Int -> Int 
-maximoEntre m o = 
-	if o >= m  
-		then o 
-		else m   
+maximoEntre x y = 
+	if x >= y  
+		then x  
+		else y   
 
 -- ▪ 
-cantidadR (MkR c _ _) = c 
+cantidadR (MkR cantidad _ _) = cantidad 
 
 -- ▪
-maximoR (MkR _ m _)   = m 
+maximoR (MkR _ maximo _)   = maximo  
 
 -- ▪ 
-promedioR (MkR c _ s) = div s c 
+promedioR (MkR cantidad _ suma) = div suma cantidad 
