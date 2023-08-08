@@ -25,7 +25,7 @@ apilar xs = apilar' xs emptyS
 
 apilar' :: [a] -> Stack a -> Stack a 
 apilar' (x:xs) s = 
-	apilar' xs (apilar x s) 
+	apilar' xs (push x s) s
 
 -- ▪ 
 -- Toma un string que representa una expresión aritmética, por ejemplo ”(2 + 3) ∗ 2”, y verifica que la
