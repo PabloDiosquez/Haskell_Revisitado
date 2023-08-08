@@ -2,37 +2,42 @@ module Gramola where
 
 -- Interfaz del Tipo Abstracto Gramola 🤘
 
--- Propósito  :  
--- Complejidad: O(1)
+-- Propósito   : Crea una nueva gramola.
+-- Precondición: La lista dada no debe ser vacía. 
+-- Complejidad : O(1)
 --
 nuevaG 	       :: [String] -> Gramola  
 
--- Propósito  :  
+-- Propósito  : Retrocede a la canción anterior en la gramola dada. 
 -- Complejidad: O(1)
 --
 anteriorG      :: Gramola -> Gramola 
 
--- Propósito  :  
+-- Propósito  : Avanza a la siguiente canción en la gramola dada. 
 -- Complejidad: O(1)
 --
-seguienteG     :: Gramola -> Gramola
+siguienteG     :: Gramola -> Gramola
 
--- Propósito  :  
+-- Propósito  : Describe el nombre de la canción sobre la cual está posicionada actualmente
+-- la gramola dada.
 -- Complejidad: O(1)
 --
 cancionG       :: Gramola -> String 
 
--- Propósito  :  
--- Complejidad: O(1)
+-- Propósito   : Permite votar por la canción actual sobre la cual está posicionada actualmente
+-- la gramola dada.
+-- Precondición: El puntaje dado debe estar comprendido entre 1 y 10 inclusive.   
+-- Complejidad : O(1)
 --
 votarG         :: Int -> Gramola -> Gramola
 
--- Propósito  :  
+-- Propósito  :  Describe el puntaje en promedio de la canción sobre la cual está posicionada actualmente
+-- la gramola dada.
 -- Complejidad: O(1)
 --
 puntajeG   	   :: Gramola -> Int 
 
--- Propósito  :  
+-- Propósito  : Describe el nombre de la canción más votada en la gramola dada.
 -- Complejidad: O(1)
 --
 temaMasVotadoG :: Gramola -> String 
