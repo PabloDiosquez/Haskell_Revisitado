@@ -85,12 +85,12 @@ siguienteG (G ants act r ((s, rs):sigs) tmv ptmv) =
 			G ((act, r) : ants) s rs sigs tmv ptmv   
 
 -- ▪
-cancionG (G _ c _) = c 
+cancionG (G _ c _ _ _ _) = c 
 
 -- ▪ 
 votarG puntaje (G ants act r sigs tmv ptmv) = 
 	if cantidadR r == ptmv
-		then G ants act (agregarR puntaje r) act (ptmv + 1)
+		then G ants act (agregarR puntaje r) sigs act (ptmv + 1)
 		else G ants act (agregarR puntaje r) sigs tmv ptmv
 
 -- ▪ 
@@ -100,4 +100,4 @@ puntajeG (G ants act r sigs tmv ptmv) =
 		else promedioR r 
 
 -- ▪ 
-temaMasVotadoG (G _ _ _ tmv _) = tmv 
+temaMasVotadoG (G _ _ _ _ tmv _) = tmv 
