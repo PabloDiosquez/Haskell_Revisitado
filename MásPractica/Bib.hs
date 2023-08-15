@@ -45,8 +45,8 @@ devolverB 	    :: Bib -> Fecha -> Libro -> Bib
 librosB 	    :: Bib -> [Libros]
 			-- O(1)
 
--- Propósito:	Describe el estado del libro dado en la biblioteca dada.
--- Precondición: El libro debe existir en la biblioteca dada.
+-- Propósito:	 Describe el estado del libro dado en la biblioteca dada.
+-- Precondición: No tiene.
 --
 consultaB 	   :: Bib -> Libro -> ResultadoConsulta
 			-- O(log n)
@@ -98,9 +98,39 @@ fromJust (Just f) = f
 -- ▪ 
 pedirPrestadoB (B libros disponibles prestados manipulaciones) fecha libro = 
 	B libros 
-	  (removeS libro disponibles)
-	  (insertM libro fecha prestados)
-	  (addS (libro, fecha) manipulaciones)
+	  (removeS libro disponibles)				-- O(log n)
+	  (insertM libro fecha prestados)			-- O(log n)
+	  (addS (libro, fecha) manipulaciones)      -- O(log n*F) = O(log n + log F)
+
+	  -- TOTAL: O(log n + log F)
+
+-- ▪
+devolverB (B libros disponibles prestados manipulaciones) fecha libro      =
+	B libros 
+	  (addS libro disponibles)              	-- O(log n)
+	  (removeM libro prestados)					-- O(log n)
+	  (addS (libro, fecha) manipulaciones)		-- O(log n + log F)
+
+	  -- TOTAL: O(log n + log F)
+
+-- ▪ 
+librosB (B libros _ _ _) = libros
+
+-- ▪ 
+consultaB (B libros disponibles prestados manipulaciones) libro = 
+	if elemS libro disponibles     			   -- O(log n)
+		then Disponible                     
+		else case lookupM libro prestados of   -- O(log n) 
+			Just f  -> Prestado fecha
+			Nothing -> Inexistente 
+			
+	 -- TOTAL: O(log n)
+
+-- ▪ 
+fueManipuladoB (B _ _ _ manipulaciones) fecha libro = 
+	elemS (libro, fecha) manipulaciones
+
+	-- TOTAL: O(log n*F) = O(log n + log F)
 			  
 
 -- El TAD Conjunto ("Set") -- Interfaz 🐱‍🚀 
@@ -117,7 +147,7 @@ pedirPrestadoB (B libros disponibles prestados manipulaciones) fecha libro =
 -- El TAD Diccionario ("Map") -- Interfaz 🐣
 
 -- emptyM 			:: Map a b -- O(1)
--- inserM 			:: Eq a => a -> b -> Map a b -> Map a b -- O(log n)
+-- insertM 			:: Eq a => a -> b -> Map a b -> Map a b -- O(log n)
 -- lookupM 			:: Eq a => a -> Map a b -> Maybe b      -- O(log n)
 -- removeM 			:: Eq a => a -> Map a b -> Map a b  	-- O(log n)
 -- keysM 			:: Map a b -> [a]  
